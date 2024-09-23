@@ -4,17 +4,15 @@ header("Access-Control-Allow-Origin: *");
 //109657
 // calendario de miami
 
-/* $calendar = CRest::call( */
-/*   'calendar.event.get', */
-/*   [ */
-/*     'type' => 'group', */
-/*     'ownerId' => '5', */
-/*   ], */
-/* ); */
-/**/
-/* $results = $calendar['result']; */
-/* var_dump($results); */
-/* die(); */
+$calendar = CRest::call(
+  'calendar.event.get',
+  [
+    'type' => 'group',
+    'ownerId' => '5',
+  ],
+);
+
+$results = $calendar['result'];
 
 /* $results = array_map(function ($res) { */
 /*   $date = strtotime($res['DATE_FROM']); */
@@ -27,8 +25,8 @@ header("Access-Control-Allow-Origin: *");
 /*   ); */
 /*   return $arr; */
 /* }, $results); */
-/**/
-/* $results = json_encode($results); */
+
+$results = json_encode($results);
 
 $range = $_GET['range'];
 $status = strtolower($_GET['status']);

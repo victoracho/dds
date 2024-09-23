@@ -235,7 +235,6 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
       ]
     ]
   ];
-
   $result = CRest::callBatch($arData, $halt = 0);
   $query = [];
   $results = $result['result']['result']['crm_source_status'];
@@ -278,38 +277,31 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
     $deal_id = null;
     if (isset($find['~DESCRIPTION'])) {
       $description = $find['~DESCRIPTION'];
-      // obtenemos el deal_id de un href
       if ($description != null) {
         $dom = new DOMDocument();
         @$dom->loadHTML($description);
         $links = $dom->getElementsByTagName('a');
         foreach ($links as $link) {
-          $deal_id = $link->getAttribute('href');
-          $deal_id = explode('/', $deal_id);
-          $deal_id = $deal_id[4];
+          $deal = $link->getAttribute('href');
+          $deal = explode('/', $deal);
+          if ($deal[2] == 'deal') {
+            $deal_id = $deal[4];
+          }
         }
       }
     }
+
     $from = $find['DATE_FROM'];
     if ($find['TZ_FROM'] == 'Europe/Dublin') {
-      // Crear un objeto DateTime con la zona horaria de Dublín
       $from = DateTime::createFromFormat('m/d/Y h:i:s a', $from, new DateTimeZone('Europe/Dublin'));
-
-      // Cambiar la zona horaria a Nueva York
       $from->setTimezone(new DateTimeZone('America/New_York'));
-
-      // Imprimir la fecha y hora convertida
       $from = $from->format('m/d/Y h:i:s a');
     }
     $to = $find['DATE_TO'];
     if ($find['TZ_TO'] == 'Europe/Dublin') {
       // Crear un objeto DateTime con la zona horaria de Dublín
       $to = DateTime::createFromFormat('m/d/Y h:i:s a', $to, new DateTimeZone('Europe/Dublin'));
-
-      // Cambiar la zona horaria a Nueva York
       $to->setTimezone(new DateTimeZone('America/New_York'));
-
-      // Imprimir la fecha y hora convertida
       $to = $to->format('m/d/Y h:i:s a');
     }
 
@@ -397,6 +389,7 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
       <button submit id="filtrar">Filtrar</button>
       <button submit id="exportar" name="exportar" type="submit">Exportar a Excel</button>
     </form>
+    <h3> <a href="newJerseyCalendar.php">New Jersey </a><a href="miamiCalendar.php">Miami</a> </h3>
     <table id="tablaPacientes" class="display">
       <thead>
         <tr>

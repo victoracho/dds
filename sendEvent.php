@@ -23,7 +23,6 @@ try {
     ],
   );
 
-
   $allPhones = null;
   $leadName = null;
   if ($currentDeal['result']) {
