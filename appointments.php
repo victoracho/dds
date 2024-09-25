@@ -96,7 +96,7 @@ if (mysqli_num_rows($result) > 0) {
       $status = '#ad260e';
     }
     if ($res['status'] == 'deleted') {
-      $status = '#101210';
+      $status = '#808080';
     }
 
     // substatus
