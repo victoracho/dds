@@ -43,6 +43,9 @@ if ($substatus != 'All Substatus') {
   $substatus =  "substatus = '$substatus' AND";
 }
 
+echo $substatus;
+die();
+
 
 $range = explode(",", $range);
 
