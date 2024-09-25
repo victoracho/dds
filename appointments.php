@@ -134,7 +134,7 @@ if (mysqli_num_rows($result) > 0) {
         'start' => $res['start'],
         'end' => $res['end'],
         'comment' => $res['comment'],
-        'substatus' => $rest['substatus'],
+        'substatus' => $res['substatus'],
         'phone' => $res['phone'],
         'user' => $res['user'],
         'user_modified' => $res['user_modified'],
