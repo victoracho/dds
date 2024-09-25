@@ -98,6 +98,7 @@ if (mysqli_num_rows($result) > 0) {
     if ($res['status'] == 'deleted') {
       $status = '#101210';
     }
+
     // substatus
     if ($res['substatus'] == 'confirmed') {
       $substatus = '#00759A';
@@ -116,6 +117,9 @@ if (mysqli_num_rows($result) > 0) {
     }
     if ($res['substatus'] == 'no phone number / no email') {
       $substatus = '#d9a4e0';
+    }
+    if ($res['substatus'] == 'not specified') {
+      $substatus = '#F0F0F0';
     }
 
     $results[] =
