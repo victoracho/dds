@@ -32,20 +32,19 @@ header("Access-Control-Allow-Origin: *");
 
 $range = $_GET['range'];
 $status = strtolower($_GET['status']);
-$substatus = strtolower($_GET['substatus']);
+$substatus = $_GET['substatus'];
 
-if ($substatus == "all status") {
-  $substatus = '';
+if ('all status' != $substatus) {
+  $substatus =  "substatus = '$substatus' AND";
 }
 
-if ($substatus != 'all status') {
-  $substatus =  "substatus = '$substatus' AND";
+if ($substatus === "All Substatus") {
+  $substatus = null;
 }
 
 
 
 $range = explode(",", $range);
-
 $servername = "16.171.204.95";
 $username = "bitrix";
 $password = "8726231";
