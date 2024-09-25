@@ -70,6 +70,7 @@ $results = [];
 if (mysqli_num_rows($result) > 0) {
   // output data of each row
   while ($res = mysqli_fetch_assoc($result)) {
+    // status 
     if ($res['status'] == 'free eval') {
       $status = '#bbecf1';
     }
@@ -88,6 +89,34 @@ if (mysqli_num_rows($result) > 0) {
     if ($res['status'] == 'missing-appointment') {
       $status = '#683696';
     }
+    if ($res['status'] == 'payed') {
+      $status = '#039e13';
+    }
+    if ($res['status'] == 'not payed') {
+      $status = '#ad260e';
+    }
+    if ($res['status'] == 'deleted') {
+      $status = '#101210';
+    }
+    // substatus
+    if ($res['substatus'] == 'confirmed') {
+      $substatus = '#00759A';
+    }
+    if ($res['substatus'] == 'unconfirmed') {
+      $substatus = '#f09707';
+    }
+    if ($res['substatus'] == 'lm + tm') {
+      $substatus = '#41f007';
+    }
+    if ($res['substatus'] == 'n/a') {
+      $substatus = '#808080';
+    }
+    if ($res['substatus'] == 'phone disconnected') {
+      $substatus = '#808080';
+    }
+    if ($res['substatus'] == 'no phone number / no email') {
+      $substatus = '#d9a4e0';
+    }
 
     $results[] =
       [
@@ -100,7 +129,7 @@ if (mysqli_num_rows($result) > 0) {
         'start' => $res['start'],
         'end' => $res['end'],
         'comment' => $res['comment'],
-        'substatus' => $res['substatus'],
+        'substatus' => $substatus,
         'phone' => $res['phone'],
         'user' => $res['user'],
         'user_modified' => $res['user_modified'],
@@ -120,8 +149,12 @@ $quantity = array(
   're-evaluation' => 0,
   'emergency' => 0,
   'vip' => 0,
-  'missing-appointment' => 0
+  'missing-appointment' => 0,
+  'payed' => 0,
+  'not payed' => 0,
+  'deleted' => 0,
 );
+
 foreach ($results as $res) {
   if ($res['status'] == 'free eval') {
     $quantity['free eval']++;
@@ -140,6 +173,15 @@ foreach ($results as $res) {
   }
   if ($res['status'] == 'missing-appointment') {
     $quantity['missing-appointment']++;
+  }
+  if ($res['status'] == 'payed') {
+    $quantity['payed']++;
+  }
+  if ($res['status'] == 'not payed') {
+    $quantity['not payed']++;
+  }
+  if ($res['status'] == 'deleted') {
+    $quantity['deleted']++;
   }
 }
 
