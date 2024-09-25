@@ -113,7 +113,7 @@ if (mysqli_num_rows($result) > 0) {
       $substatus = '#808080';
     }
     if ($res['substatus'] == 'phone disconnected') {
-      $substatus = '#808080';
+      $substatus = '#8c2800';
     }
     if ($res['substatus'] == 'no phone / email') {
       $substatus = '#d9a4e0';
