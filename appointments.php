@@ -35,11 +35,11 @@ $status = strtolower($_GET['status']);
 
 $substatus = $_GET['substatus'];
 
-if ($substatus == "") {
+if ($substatus == "All Substatus") {
   $substatus = null;
 }
 
-if ($substatus) {
+if ($substatus != 'All Substatus') {
   $substatus =  "substatus = '$substatus' AND";
 }
 
