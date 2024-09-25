@@ -126,6 +126,7 @@ if (mysqli_num_rows($result) > 0) {
       [
         'id' => $res['id'],
         'deal_id' => $res['deal_id'],
+        'substatusColor' => $substatus,
         'allDay' => false,
         'title' => $res['name'],
         'backgroundColor' => $status,
@@ -133,7 +134,7 @@ if (mysqli_num_rows($result) > 0) {
         'start' => $res['start'],
         'end' => $res['end'],
         'comment' => $res['comment'],
-        'substatus' => $substatus,
+        'substatus' => $rest['substatus'],
         'phone' => $res['phone'],
         'user' => $res['user'],
         'user_modified' => $res['user_modified'],
