@@ -40,7 +40,6 @@ if ($substatus == "") {
 }
 
 if ($substatus) {
-  $substatus = '#' . $substatus;
   $substatus =  "substatus = '$substatus' AND";
 }
 
