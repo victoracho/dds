@@ -34,11 +34,9 @@ $range = $_GET['range'];
 $status = strtolower($_GET['status']);
 
 $substatus = $_GET['substatus'];
-echo $substatus;
-die();
 
 if ($substatus == "All Substatus") {
-  $substatus = null;
+  $substatus = '';
 }
 
 if ($substatus != 'All Substatus') {
