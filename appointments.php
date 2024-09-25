@@ -32,19 +32,16 @@ header("Access-Control-Allow-Origin: *");
 
 $range = $_GET['range'];
 $status = strtolower($_GET['status']);
+$substatus = strtolower($_GET['substatus']);
 
-$substatus = $_GET['substatus'];
-
-if ($substatus == "All Substatus") {
+if ($substatus == "all status") {
   $substatus = '';
 }
 
-if ($substatus != 'All Substatus') {
+if ($substatus != 'all status') {
   $substatus =  "substatus = '$substatus' AND";
 }
 
-echo $substatus;
-die();
 
 
 $range = explode(",", $range);
