@@ -45,7 +45,7 @@ $range = explode(",", $range);
 $servername = "16.171.204.95";
 $username = "bitrix";
 $password = "8726231";
-$dbname = "newJersey";
+$dbname = "miami";
 
 
 
@@ -155,7 +155,6 @@ $quantity = array(
   'not payed' => 0,
   'deleted' => 0,
 );
-
 foreach ($results as $res) {
   if ($res['status'] == 'free eval') {
     $quantity['free eval']++;

@@ -7,7 +7,7 @@ $calendar = CRest::call(
   'calendar.event.get',
   [
     'type' => 'group',
-    'ownerId' => '6',
+    'ownerId' => '5',
     'from' => '2023-05-10',
     'to' => '2025-08-20',
   ],
@@ -52,7 +52,7 @@ $results = array_map(function ($res) {
 $servername = "16.171.204.95";
 $username = "bitrix";
 $password = "8726231";
-$dbname = "newJersey";
+$dbname = "miami";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
