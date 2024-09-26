@@ -34,7 +34,7 @@ $range = $_GET['range'];
 $status = strtolower($_GET['status']);
 $substatus = $_GET['substatus'];
 
-if ('all status' != $substatus) {
+if ('All Substatus' != $substatus) {
   $substatus =  "substatus = '$substatus' AND";
 }
 
