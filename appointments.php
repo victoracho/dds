@@ -42,8 +42,6 @@ if ($substatus === "All Substatus") {
   $substatus = null;
 }
 
-
-
 $range = explode(",", $range);
 $servername = "16.171.204.95";
 $username = "bitrix";
@@ -120,7 +118,6 @@ if (mysqli_num_rows($result) > 0) {
     if ($res['substatus'] == 'not specified') {
       $substatus = '#F0F0F0';
     }
-
     $results[] =
       [
         'id' => $res['id'],
@@ -136,6 +133,7 @@ if (mysqli_num_rows($result) > 0) {
         'substatus' => $res['substatus'],
         'phone' => $res['phone'],
         'user' => $res['user'],
+        'previous_status' => $res['previous_status'],
         'user_modified' => $res['user_modified'],
         'date_created' => $res['date_created'],
         'date_modified' => $res['date_modified']
