@@ -23,16 +23,15 @@ try {
     die("Connection failed: " . $conn->connect_error);
   }
 
-  $sql = "SELECT * FROM appointments where id = $eventId";
+  $sql = "SELECT * FROM appointments where id = $eventId order by id limit 1";
   $result = mysqli_query($conn, $sql);
   $previousStatus = null;
   if (mysqli_num_rows($result) > 0) {
     $res = mysqli_fetch_assoc($result);
     $previousStatus = $res['previous_status'];
   }
-
   $stmt = $conn->prepare($sql = "UPDATE appointments SET name= ?, status= ?, user_modified= ?, substatus= ?, start = ?, end = ?,  date_modified = ?, comment = ?, previous_status = ?   WHERE  id= ?");
-  $stmt->bind_param('sssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $previousStatus, $eventId);
+  $stmt->bind_param('ssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $previousStatus, $eventId);
   $result = $stmt->execute();
   $conn->close();
 
