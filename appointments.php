@@ -37,7 +37,6 @@ $substatus = $_GET['substatus'];
 if ('All Substatus' != $substatus) {
   $substatus =  "substatus = '$substatus' AND";
 }
-
 if ($substatus === "All Substatus") {
   $substatus = null;
 }
