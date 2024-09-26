@@ -28,6 +28,8 @@ try {
   $previousStatus = null;
   if (mysqli_num_rows($result) > 0) {
     $res = mysqli_fetch_assoc($result);
+    var_dump($res);
+    die();
     $previousStatus = $res['previous_status'];
   }
   $stmt = $conn->prepare($sql = "UPDATE appointments SET name= ?, status= ?, user_modified= ?, substatus= ?, start = ?, end = ?,  date_modified = ?, comment = ?, previous_status = ?   WHERE  id= ?");
