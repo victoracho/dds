@@ -1,5 +1,5 @@
 <?php
-define('C_REST_WEB_HOOK_URL', 'https://btx.dds.miami/rest/10476/1mewdlanh4kgrnos/');//url on creat Webhook
+define('C_REST_WEB_HOOK_URL', 'https://daso.dds.miami/rest/3767/wh98vmvdwqfhir9o/');//url on creat Webhook
 //define('C_REST_CURRENT_ENCODING','windows-1251');
 //define('C_REST_IGNORE_SSL',true);//turn off validate ssl by curl
 //define('C_REST_LOG_TYPE_DUMP',true); //logs save var_export for viewing convenience

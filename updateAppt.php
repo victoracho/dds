@@ -7,7 +7,7 @@ $calendar = CRest::call(
   'calendar.event.get',
   [
     'type' => 'group',
-    'ownerId' => '5',
+    'ownerId' => '4',
     'from' => '2023-05-10',
     'to' => '2025-08-20',
   ],
@@ -52,7 +52,7 @@ $results = array_map(function ($res) {
 $servername = "16.171.204.95";
 $username = "bitrix";
 $password = "8726231";
-$dbname = "miami";
+$dbname = "daso";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -62,25 +62,32 @@ if ($conn->connect_error) {
 }
 
 foreach ($results as $res) {
-  if ($res['SECTION_ID'] == 84) {
-    $color = '#f7699d';
+  if ($res['SECTION_ID'] == 34) {
     $status = 'evaluation';
   }
-  if ($res['SECTION_ID'] == 85) {
-    $color = '#bbecf1';
-    $status = 'free eval';
+  if ($res['SECTION_ID'] == 37) {
+    $status = 'follow up';
   }
-  if ($res['SECTION_ID'] == 86) {
-    $color = '#fff55a';
-    $status = 're-evaluation';
+  if ($res['SECTION_ID'] == 84) {
+    $status = 'hyperbaric chamber';
   }
-  if ($res['SECTION_ID'] == 88) {
-    $color = '#e89b06';
-    $status = 'emergency';
+  if ($res['SECTION_ID'] == 63) {
+    $status = 'labs';
   }
-  if ($res['SECTION_ID'] == 89) {
-    $color = '#0092cc';
-    $status = 'vip';
+  if ($res['SECTION_ID'] == 32) {
+    $status = 'massage';
+  }
+  if ($res['SECTION_ID'] == 33) {
+    $status = 'post-op';
+  }
+  if ($res['SECTION_ID'] == 19) {
+    $status = 'pre-opt appt';
+  }
+  if ($res['SECTION_ID'] == 36) {
+    $status = 'pre-opt surgery';
+  }
+  if ($res['SECTION_ID'] == 18) {
+    $status = 'surgery';
   }
 
   $name = $res['NAME'];
