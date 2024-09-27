@@ -52,7 +52,7 @@ $results = array_map(function ($res) {
 $servername = "16.171.204.95";
 $username = "bitrix";
 $password = "8726231";
-$dbname = "newjersey";
+$dbname = "newJersey";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

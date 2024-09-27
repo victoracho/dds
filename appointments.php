@@ -45,7 +45,7 @@ $range = explode(",", $range);
 $servername = "16.171.204.95";
 $username = "bitrix";
 $password = "8726231";
-$dbname = "newjersey";
+$dbname = "newJersey";
 
 
 
