@@ -7,7 +7,7 @@ $calendar = CRest::call(
   'calendar.event.get',
   [
     'type' => 'group',
-    'ownerId' => '5',
+    'ownerId' => '6',
     'from' => '2023-05-10',
     'to' => '2025-08-20',
   ],
@@ -52,7 +52,7 @@ $results = array_map(function ($res) {
 $servername = "16.171.204.95";
 $username = "bitrix";
 $password = "8726231";
-$dbname = "miami";
+$dbname = "newjersey";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -62,23 +62,23 @@ if ($conn->connect_error) {
 }
 
 foreach ($results as $res) {
-  if ($res['SECTION_ID'] == 84) {
+  if ($res['SECTION_ID'] == 92) {
     $color = '#f7699d';
     $status = 'evaluation';
   }
-  if ($res['SECTION_ID'] == 85) {
+  if ($res['SECTION_ID'] == 93) {
     $color = '#bbecf1';
     $status = 'free eval';
   }
-  if ($res['SECTION_ID'] == 86) {
+  if ($res['SECTION_ID'] == 94) {
     $color = '#fff55a';
     $status = 're-evaluation';
   }
-  if ($res['SECTION_ID'] == 88) {
+  if ($res['SECTION_ID'] == 91) {
     $color = '#e89b06';
     $status = 'emergency';
   }
-  if ($res['SECTION_ID'] == 89) {
+  if ($res['SECTION_ID'] == 95) {
     $color = '#0092cc';
     $status = 'vip';
   }
