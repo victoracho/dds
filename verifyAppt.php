@@ -17,6 +17,7 @@ try {
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
+
   $sql = "SELECT * FROM appointments where deal_id = $deal_id ";
   $result = mysqli_query($conn, $sql);
 

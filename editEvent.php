@@ -31,8 +31,8 @@ try {
     $res = mysqli_fetch_assoc($result);
     $previousStatus = $res['status'];
   }
-  $stmt = $conn->prepare($sql = "UPDATE appointments SET name= ?, status= ?, user_modified= ?, substatus= ?, start = ?, end = ?,  date_modified = ?, comment = ?, previous_status = ?   WHERE  id= ?");
-  $stmt->bind_param('ssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $previousStatus, $eventId);
+  $stmt = $conn->prepare($sql = "UPDATE appointments SET name= ?, status= ?, user_modified= ?, substatus= ?, start = ?, end = ?,  date_modified = ?, comment = ?, previous_status = ?, transportation = ?, lodging = ?, more_invoices = ? , amount = ?,  invoice_number = ?   WHERE  id= ?");
+  $stmt->bind_param('ssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $previousStatus, $event['transportation'], $event['lodging'], $event['more_invoices'], $event['amount'], $event['invoice_number'], $eventId);
   $result = $stmt->execute();
   $conn->close();
 
