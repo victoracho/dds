@@ -32,13 +32,11 @@ $range = $_GET['range'];
 $status = strtolower($_GET['status']);
 
 $substatus = $_GET['substatus'];
-
-if ($substatus == "All Substatus") {
-  $substatus = null;
-}
-
-if ($substatus != "All Substatus") {
+if ($substatus != 'All Substatus') {
   $substatus =  "substatus = '$substatus' AND";
+}
+if ($substatus === 'All Substatus') {
+  $substatus = null;
 }
 
 $range = explode(",", $range);
