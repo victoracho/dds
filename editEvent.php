@@ -9,6 +9,7 @@ try {
   $username = "bitrix";
   $password = "8726231";
   $dbname = "daso";
+
   $_POST = json_decode(file_get_contents("php://input"), true);
   $user = $_POST['user'];
   $eventId = $_POST['event_id'];
@@ -23,8 +24,15 @@ try {
     die("Connection failed: " . $conn->connect_error);
   }
 
-  $stmt = $conn->prepare($sql = "UPDATE appointments SET name= ?, status= ?, user_modified= ?, substatus= ?, start = ?, end = ?,  date_modified = ?, comment = ?  WHERE  id= ?");
-  $stmt->bind_param('sssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $eventId);
+  $sql = "SELECT * FROM appointments where id = $eventId order by id limit 1";
+  $result = mysqli_query($conn, $sql);
+  $previousStatus = null;
+  if (mysqli_num_rows($result) > 0) {
+    $res = mysqli_fetch_assoc($result);
+    $previousStatus = $res['status'];
+  }
+  $stmt = $conn->prepare($sql = "UPDATE appointments SET name= ?, status= ?, user_modified= ?, substatus= ?, start = ?, end = ?,  date_modified = ?, comment = ?, previous_status = ?, transportation = ?, lodging = ?, more_invoices = ? , amount = ?,  invoice_number = ?   WHERE  id= ?");
+  $stmt->bind_param('sssssssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $previousStatus, $event['transportation'], $event['lodging'], $event['more_invoices'], $event['amount'], $event['invoice_number'], $eventId);
   $result = $stmt->execute();
   $conn->close();
 

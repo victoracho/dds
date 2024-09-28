@@ -33,17 +33,15 @@ $status = strtolower($_GET['status']);
 
 $substatus = $_GET['substatus'];
 
-if ($substatus == "") {
+if ($substatus == "All Substatus") {
   $substatus = null;
 }
 
-if ($substatus) {
-  $substatus = '#' . $substatus;
+if ($substatus != "All Substatus") {
   $substatus =  "substatus = '$substatus' AND";
 }
 
 $range = explode(",", $range);
-
 $servername = "16.171.204.95";
 $username = "bitrix";
 $password = "8726231";
