@@ -93,7 +93,10 @@ if (mysqli_num_rows($result) > 0) {
       $status = '#b57051';
     }
     if ($res['status'] == 'surgery') {
-      $status = '#b57051';
+      $status = '#86b100';
+    }
+    if ($res['status'] == 'missing-appointment') {
+      $status = '#7b03fc';
     }
 
     $results[] =
