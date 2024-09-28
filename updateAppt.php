@@ -128,6 +128,7 @@ foreach ($results as $res) {
   $id_event = $res['ID'];
   $deal_id = $res['deal_id'];
   $comentary = $res['comentary'];
+  $amount = 0;
 
   if ($res['MEETING']) {
     if (isset($res['MEETING']['HOST_NAME'])) {
@@ -135,8 +136,8 @@ foreach ($results as $res) {
     }
   }
 
-  $stmt = $conn->prepare($sql = "INSERT into appointments SET deal_id = ? , name= ?, status= ?, user= ?, substatus= ?, start = ?, end = ?, comment = ?, id_event = ?");
-  $stmt->bind_param('sssssssss', $deal_id, $name, $status, $user, $substatus, $start, $end, $comentary, $id_event);
+  $stmt = $conn->prepare($sql = "INSERT into appointments SET deal_id = ? , name= ?, status= ?, user= ?, substatus= ?, start = ?, end = ?, comment = ?, amount =?, id_event = ?");
+  $stmt->bind_param('ssssssssss', $deal_id, $name, $status, $user, $substatus, $start, $end, $comentary, $amount, $id_event);
   $result = $stmt->execute();
 }
 $conn->close();

@@ -88,7 +88,7 @@ if (mysqli_num_rows($result) > 0) {
       $status = '#fff300';
     }
     if ($res['status'] == 'pre-op surgery') {
-      $status = '#b57051';
+      $status = '#f69ac1';
     }
     if ($res['status'] == 'surgery') {
       $status = '#86b100';
@@ -132,22 +132,35 @@ $quantity = array(
   'pre-op appt' => 0,
   'pre-op surgery' => 0,
   'surgery' => 0,
+  'missing-appointment' => 0,
 );
 foreach ($results as $res) {
-  if ($res['status'] == 'free eval') {
-    $quantity['free eval']++;
-  }
   if ($res['status'] == 'evaluation') {
     $quantity['evaluation']++;
   }
-  if ($res['status'] == 're-evaluation') {
-    $quantity['re-evaluation']++;
+  if ($res['status'] == 'follow up') {
+    $quantity['follow up']++;
   }
-  if ($res['status'] == 'emergency') {
-    $quantity['emergency']++;
+  if ($res['status'] == 'hyperbaric chamber') {
+    $quantity['hyperbaric chamber']++;
   }
-  if ($res['status'] == 'vip') {
-    $quantity['vip']++;
+  if ($res['status'] == 'labs') {
+    $quantity['labs']++;
+  }
+  if ($res['status'] == 'massage') {
+    $quantity['massage']++;
+  }
+  if ($res['status'] == 'post-op') {
+    $quantity['post-op']++;
+  }
+  if ($res['status'] == 'pre-op appt') {
+    $quantity['post-op']++;
+  }
+  if ($res['status'] == 'pre-op surgery') {
+    $quantity['pre-op surgery']++;
+  }
+  if ($res['status'] == 'surgery') {
+    $quantity['surgery']++;
   }
   if ($res['status'] == 'missing-appointment') {
     $quantity['missing-appointment']++;
