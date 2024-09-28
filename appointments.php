@@ -95,6 +95,28 @@ if (mysqli_num_rows($result) > 0) {
       $status = '#7b03fc';
     }
 
+    if ($res['substatus'] == 'confirmed') {
+      $substatus = '#00759A';
+    }
+    if ($res['substatus'] == 'unconfirmed') {
+      $substatus = '#f09707';
+    }
+    if ($res['substatus'] == 'lm + tm') {
+      $substatus = '#41f007';
+    }
+    if ($res['substatus'] == 'n/a') {
+      $substatus = '#808080';
+    }
+    if ($res['substatus'] == 'phone disconnected') {
+      $substatus = '#8c2800';
+    }
+    if ($res['substatus'] == 'no phone / email') {
+      $substatus = '#d9a4e0';
+    }
+    if ($res['substatus'] == 'not specified') {
+      $substatus = '#F0F0F0';
+    }
+
     $results[] =
       [
         'id' => $res['id'],
