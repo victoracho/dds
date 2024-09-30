@@ -65,6 +65,16 @@ try {
     'message' => 'Added Succesfully'
   );
   echo json_encode($response);
+  $comment = CRest::call(
+    'crm.timeline.comment.add',
+    [
+      'fields' =>  [
+        'ENTITY_ID' => $deal,
+        'ENTITY_TYPE' => "deal",
+        'COMMENT' => "Se ha creado un " . $event['BackgroundColor'] . ' Desde :' . $event['start'] . ' Hasta :' . $event['end'] . ' creado por: ' . $user
+      ],
+    ],
+  );
 } catch (Exception $e) {
   $response = array(
     'message' => 'An error ocurred, try again'
