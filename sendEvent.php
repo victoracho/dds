@@ -78,7 +78,7 @@ try {
       'fields' =>  [
         'ENTITY_ID' => $deal,
         'ENTITY_TYPE' => "deal",
-        'COMMENT' => "Se ha creado un evento del tipo:" . $event['BackgroundColor'] . ' Desde :' . $desde . ' Hasta :' . $hasta . ' creado por: ' . $user
+        'COMMENT' => "An event has been created with the type: " . $event['BackgroundColor'] . ' From: ' . $desde . ' Until: ' . $hasta . ' created by: ' . $user . ' for Miami calendar'
       ],
     ],
   );
