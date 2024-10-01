@@ -94,23 +94,23 @@ foreach ($results as $res) {
   $substatus = '#808080';
 
   $start = $res['DATE_FROM'];
-  if ($res['TZ_FROM'] == 'Europe/Dublin') {
-    $start = DateTime::createFromFormat('m/d/Y h:i:s a', $start, new DateTimeZone('Europe/Dublin'));
+  if ($res['TZ_FROM'] == 'America/Anguilla') {
+    $start = DateTime::createFromFormat('m/d/Y h:i:s a', $start, new DateTimeZone('America/Anguilla'));
     $start->setTimezone(new DateTimeZone('America/New_York'));
     $start = $start->format('Y-m-d\TH:i:s');
   }
-  if ($res['TZ_FROM'] != 'Europe/Dublin') {
+  if ($res['TZ_FROM'] != 'America/Anguilla') {
     $start = DateTime::createFromFormat('m/d/Y h:i:s A', $start);
     $start = $start->format('Y-m-d\TH:i:s');
   }
 
   $end = $res['DATE_TO'];
-  if ($res['TZ_TO'] == 'Europe/Dublin') {
-    $end = DateTime::createFromFormat('m/d/Y h:i:s a', $end, new DateTimeZone('Europe/Dublin'));
+  if ($res['TZ_TO'] == 'America/Anguilla') {
+    $end = DateTime::createFromFormat('m/d/Y h:i:s a', $end, new DateTimeZone('America/Anguilla'));
     $end->setTimezone(new DateTimeZone('America/New_York'));
     $end = $end->format('Y-m-d\TH:i:s');
   }
-  if ($res['TZ_TO'] != 'Europe/Dublin') {
+  if ($res['TZ_TO'] != 'America/Anguilla') {
     $end = DateTime::createFromFormat('m/d/Y h:i:s A', $end);
     $end = $end->format('Y-m-d\TH:i:s');
   }
