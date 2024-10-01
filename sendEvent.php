@@ -71,7 +71,6 @@ try {
   $hasta = $event['end'];
   $hasta = new DateTime($hasta);
   $hasta = $hasta->format('Y-m-d H:i');
-
   $comment = CRest::call(
     'crm.timeline.comment.add',
     [
@@ -82,7 +81,6 @@ try {
       ],
     ],
   );
-
   echo json_encode($response);
 } catch (Exception $e) {
   $response = array(
