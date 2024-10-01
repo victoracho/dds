@@ -64,6 +64,25 @@ try {
   $response = array(
     'message' => 'Added Succesfully'
   );
+  $desde = $event['start'];
+  $desde = new DateTime($desde);
+  $desde = $desde->format('Y-m-d H:i');
+
+  $hasta = $event['end'];
+  $hasta = new DateTime($hasta);
+  $hasta = $hasta->format('Y-m-d H:i');
+
+  $comment = CRest::call(
+    'crm.timeline.comment.add',
+    [
+      'fields' =>  [
+        'ENTITY_ID' => $deal,
+        'ENTITY_TYPE' => "deal",
+        'COMMENT' => "Se ha creado un evento del tipo:" . $event['BackgroundColor'] . ' Desde :' . $desde . ' Hasta :' . $hasta . ' creado por: ' . $user
+      ],
+    ],
+  );
+
   echo json_encode($response);
 } catch (Exception $e) {
   $response = array(
