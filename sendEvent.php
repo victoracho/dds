@@ -276,7 +276,6 @@ try {
       ],
     ],
   );
-
   echo json_encode($response);
 } catch (Exception $e) {
   $response = array(
