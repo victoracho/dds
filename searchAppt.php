@@ -5,10 +5,12 @@ require_once(__DIR__ . '/crest.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-$servername = "16.171.204.95";
-$username = "bitrix";
-$password = "8726231";
-$dbname = "daso";
+$ini = parse_ini_file('app.ini');
+$servername = $ini['db_name'];
+$username = $ini['db_user'];
+$password = $ini['db_password'];
+$dbname = $ini['db_name'];
+
 $name = $_GET['name'];
 
 // Create connection

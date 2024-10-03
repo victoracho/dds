@@ -6,10 +6,11 @@ ini_set('display_errors', 'On');
 require_once(__DIR__ . '/crest.php');
 
 try {
-  $servername = "16.171.204.95";
-  $username = "bitrix";
-  $password = "8726231";
-  $dbname = "daso";
+  $ini = parse_ini_file('app.ini');
+  $servername = $ini['db_name'];
+  $username = $ini['db_user'];
+  $password = $ini['db_password'];
+  $dbname = $ini['db_name'];
 
   $_POST = json_decode(file_get_contents("php://input"), true);
   $user = $_POST['user'];
@@ -56,9 +57,8 @@ try {
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
-
-  $stmt = $conn->prepare($sql = "INSERT into appointments SET name= ?, status= ?, user= ?, substatus= ?, start = ?, end =?,  date_created = ?, comment = ?, deal_id = ?, phone = ? , lead_name = ?, lodging = ?, transportation = ?, more_invoices = ?, amount= ?, invoice_number = ?");
-  $stmt->bind_param('ssssssssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $deal, $allPhones, $leadName, $event['lodging'], $event['transportation'], $event['more_invoices'], $event['amount'], $event['invoice_number']);
+  $stmt = $conn->prepare($sql = "INSERT into appointments SET name= ?, status= ?, user= ?, substatus= ?, start = ?, end =?,  date_created = ?, comment = ?, deal_id = ?, phone = ? , lead_name = ?, lodging = ?, transportation = ?, more_invoices = ?, amount= ?, invoice_number = ?, edad = ? , estado = ? ");
+  $stmt->bind_param('ssssssssssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $deal, $allPhones, $leadName, $event['lodging'], $event['transportation'], $event['more_invoices'], $event['amount'], $event['invoice_number'], $edad, $estado);
   $result = $stmt->execute();
   $conn->close();
   $response = array(
@@ -78,7 +78,7 @@ try {
       'fields' =>  [
         'ENTITY_ID' => $deal,
         'ENTITY_TYPE' => "deal",
-        'COMMENT' => "Se ha creado un evento del tipo: " . $event['BackgroundColor'] . ' Desde : ' . $desde . ' Hasta : ' . $hasta . ' creado por: ' . $user
+        'COMMENT' => "Se ha creado un evento del tipo: " . $event['BackgroundColor'] . ' Desde : ' . $desde . ' Hasta : ' . $hasta . ' creado por: ' . $user . ' para Daso Calendar'
       ],
     ],
   );

@@ -1,10 +1,12 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 require_once(__DIR__ . '/crest.php');
-$servername = "173.31.30.43";
-$username = "bitrix";
-$password = "8726231";
-$dbname = "miami";
+
+$ini = parse_ini_file('app.ini');
+$servername = $ini['db_name'];
+$username = $ini['db_user'];
+$password = $ini['db_password'];
+$dbname = $ini['db_name'];
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
