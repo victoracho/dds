@@ -7,10 +7,11 @@ require_once(__DIR__ . '/crest.php');
 
 try {
   // convierte el valor del campo de edad a su valor en edad
-  $servername = "16.171.204.95";
-  $username = "bitrix";
-  $password = "8726231";
-  $dbname = "daso";
+  $ini = parse_ini_file('app.ini');
+  $servername = $ini['db_name'];
+  $username = $ini['db_user'];
+  $password = $ini['db_password'];
+  $dbname = $ini['db_name'];
 
   $_POST = json_decode(file_get_contents("php://input"), true);
   $user = $_POST['user'];
@@ -59,8 +60,8 @@ try {
     die("Connection failed: " . $conn->connect_error);
   }
 
-  $stmt = $conn->prepare($sql = "INSERT into appointments SET name= ?, status= ?, user= ?, substatus= ?, start = ?, end =?,  date_created = ?, comment = ?, deal_id = ?, phone = ? , lead_name = ?, lodging = ?, transportation = ?, more_invoices = ?, amount= ?, invoice_number = ?, salon = ?, doctor = ? ");
-  $stmt->bind_param('ssssssssssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $deal, $allPhones, $leadName, $event['lodging'], $event['transportation'], $event['more_invoices'], $event['amount'], $event['invoice_number'], $salon, $doctor);
+  $stmt = $conn->prepare($sql = "INSERT into appointments SET name= ?, status= ?, user= ?, substatus= ?, start = ?, end =?,  date_created = ?, comment = ?, deal_id = ?, phone = ? , lead_name = ?,  salon = ?, doctor = ? ");
+  $stmt->bind_param('sssssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $deal, $allPhones, $leadName, $salon, $doctor);
   $result = $stmt->execute();
   $conn->close();
   $response = array(

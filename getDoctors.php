@@ -2,50 +2,12 @@
 require_once(__DIR__ . '/crest.php');
 header("Access-Control-Allow-Origin: *");
 //109657
-// calendario de miami
-
-/* $calendar = CRest::call( */
-/*   'calendar.event.get', */
-/*   [ */
-/*     'type' => 'group', */
-/*     'ownerId' => '5', */
-/*   ], */
-/* ); */
-
-/* $results = $calendar['result']; */
-
-/* $results = array_map(function ($res) { */
-/*   $date = strtotime($res['DATE_FROM']); */
-/*   $arr = array( */
-/*     'id' => $res['ID'], */
-/*     'allDay' => true, */
-/*     'title' => $res['NAME'], */
-/*     'start' => date('Y-m-d', $date), */
-/*     'backgroundColor' => $res['COLOR'], */
-/*   ); */
-/*   return $arr; */
-/* }, $results); */
-
-/* $results = json_encode($results); */
-
-$range = $_GET['range'];
-$status = strtolower($_GET['status']);
-
-$substatus = $_GET['substatus'];
-if ($substatus != 'All Substatus') {
-  $substatus =  "substatus = '$substatus' AND";
-}
-if ($substatus === 'All Substatus') {
-  $substatus = null;
-}
-
 $range = explode(",", $range);
-$servername = "16.171.204.95";
-$username = "bitrix";
-$password = "8726231";
-$dbname = "daso";
-
-
+$ini = parse_ini_file('app.ini');
+$servername = $ini['db_name'];
+$username = $ini['db_user'];
+$password = $ini['db_password'];
+$dbname = $ini['db_name'];
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -57,7 +19,7 @@ if (!$conn) {
 if (empty($status)) {
   $status = null;
 }
-$sql = "SELECT * FROM appointments where $substatus status in ('$status') AND start between '$range[0]' AND '$range[1]' ";
+$sql = "SELECT * FROM appointments where $substatus $doctor $salon status in ('$status') AND start between '$range[0]' AND '$range[1]' ";
 $result = mysqli_query($conn, $sql);
 $results = [];
 
