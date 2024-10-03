@@ -6,11 +6,11 @@ ini_set('display_errors', 'On');
 require_once(__DIR__ . '/crest.php');
 
 try {
-  $ini = parse_ini_file('app.ini');
-  $servername = $ini['db_name'];
-  $username = $ini['db_user'];
-  $password = $ini['db_password'];
-  $dbname = $ini['db_name'];
+  // convierte el valor del campo de edad a su valor en edad
+  $servername = "16.171.204.95";
+  $username = "bitrix";
+  $password = "8726231";
+  $dbname = "daso";
 
   $_POST = json_decode(file_get_contents("php://input"), true);
   $user = $_POST['user'];
@@ -25,9 +25,10 @@ try {
     ],
   );
 
-
   $allPhones = null;
   $leadName = null;
+  $edad = null;
+  $state = null;
   if ($currentDeal['result']) {
     $currentDeal = $currentDeal['result'];
     if (isset($currentDeal['TITLE'])) {
@@ -57,8 +58,9 @@ try {
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
-  $stmt = $conn->prepare($sql = "INSERT into appointments SET name= ?, status= ?, user= ?, substatus= ?, start = ?, end =?,  date_created = ?, comment = ?, deal_id = ?, phone = ? , lead_name = ?, lodging = ?, transportation = ?, more_invoices = ?, amount= ?, invoice_number = ?, edad = ? , estado = ? ");
-  $stmt->bind_param('ssssssssssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $deal, $allPhones, $leadName, $event['lodging'], $event['transportation'], $event['more_invoices'], $event['amount'], $event['invoice_number'], $edad, $estado);
+
+  $stmt = $conn->prepare($sql = "INSERT into appointments SET name= ?, status= ?, user= ?, substatus= ?, start = ?, end =?,  date_created = ?, comment = ?, deal_id = ?, phone = ? , lead_name = ?, lodging = ?, transportation = ?, more_invoices = ?, amount= ?, invoice_number = ?, salon = ?, doctor = ? ");
+  $stmt->bind_param('ssssssssssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $deal, $allPhones, $leadName, $event['lodging'], $event['transportation'], $event['more_invoices'], $event['amount'], $event['invoice_number'], $salon, $doctor);
   $result = $stmt->execute();
   $conn->close();
   $response = array(
@@ -78,18 +80,16 @@ try {
       'fields' =>  [
         'ENTITY_ID' => $deal,
         'ENTITY_TYPE' => "deal",
-        'COMMENT' => "Se ha creado un evento del tipo: " . $event['BackgroundColor'] . ' Desde : ' . $desde . ' Hasta : ' . $hasta . ' creado por: ' . $user . ' para Daso Calendar'
+        'COMMENT' => "Se ha creado un evento del tipo: " . $event['BackgroundColor'] . ' Desde : ' . $desde . ' Hasta : ' . $hasta . ' creado por: ' . $user . ' Para Daso calendar con el doctor: ' . $doctor . ' en el salon: ' . $salon
       ],
     ],
   );
-
   echo json_encode($response);
 } catch (Exception $e) {
   $response = array(
-    'message' => 'An error ocurred, try again'
+    'message' => 'An error has ocurred'
   );
   echo json_encode($response);
 }
-
 
 die();
