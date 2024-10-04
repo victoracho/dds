@@ -7,6 +7,7 @@ header("Access-Control-Allow-Origin: *");
 $range = $_GET['range'];
 $status = strtolower($_GET['status']);
 
+
 $substatus = $_GET['substatus'];
 if ($substatus != 'All Substatus') {
   $substatus =  "substatus = '$substatus' AND";
@@ -33,7 +34,7 @@ if ($salon === 'All Salons') {
 
 $range = explode(",", $range);
 $ini = parse_ini_file('app.ini');
-$servername = $ini['db_name'];
+$servername = $ini['servername'];
 $username = $ini['db_user'];
 $password = $ini['db_password'];
 $dbname = $ini['db_name'];
@@ -51,6 +52,7 @@ if (empty($status)) {
   $status = null;
 }
 $sql = "SELECT * FROM appointments where $substatus $doctor $salon status in ('$status') AND start between '$range[0]' AND '$range[1]' ";
+
 $result = mysqli_query($conn, $sql);
 $results = [];
 

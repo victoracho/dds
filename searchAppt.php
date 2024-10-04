@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 $ini = parse_ini_file('app.ini');
-$servername = $ini['db_name'];
+$servername = $ini['servername'];
 $username = $ini['db_user'];
 $password = $ini['db_password'];
 $dbname = $ini['db_name'];

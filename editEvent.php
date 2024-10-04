@@ -5,10 +5,11 @@ header("Access-Control-Allow-Headers: Content-Type");
 ini_set('display_errors', 'On');
 
 try {
-  $servername = "16.171.204.95";
-  $username = "bitrix";
-  $password = "8726231";
-  $dbname = "daso";
+  $ini = parse_ini_file('app.ini');
+  $servername = $ini['db_name'];
+  $username = $ini['db_user'];
+  $password = $ini['db_password'];
+  $dbname = $ini['db_name'];
 
   $_POST = json_decode(file_get_contents("php://input"), true);
   $user = $_POST['user'];
@@ -31,8 +32,9 @@ try {
     $res = mysqli_fetch_assoc($result);
     $previousStatus = $res['status'];
   }
-  $stmt = $conn->prepare($sql = "UPDATE appointments SET name= ?, status= ?, user_modified= ?, substatus= ?, start = ?, end = ?,  date_modified = ?, comment = ?, previous_status = ?, transportation = ?, lodging = ?, more_invoices = ? , amount = ?,  invoice_number = ?   WHERE  id= ?");
-  $stmt->bind_param('sssssssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $previousStatus, $event['transportation'], $event['lodging'], $event['more_invoices'], $event['amount'], $event['invoice_number'], $eventId);
+
+  $stmt = $conn->prepare($sql = "UPDATE appointments SET name= ?, status= ?, user_modified= ?, substatus= ?, start = ?, end = ?,  date_modified = ?, comment = ?, previous_status = ?, transportation = ?, lodging = ?, more_invoices = ? , amount = ?,  invoice_number = ?, doctor = ?. salon = ?   WHERE  id= ?");
+  $stmt->bind_param('sssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $previousStatus, $event['doctor'], $event['salon'], $eventId);
   $result = $stmt->execute();
   $conn->close();
 

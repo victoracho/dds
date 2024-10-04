@@ -8,7 +8,7 @@ require_once(__DIR__ . '/crest.php');
 try {
   // convierte el valor del campo de edad a su valor en edad
   $ini = parse_ini_file('app.ini');
-  $servername = $ini['db_name'];
+  $servername = $ini['servername'];
   $username = $ini['db_user'];
   $password = $ini['db_password'];
   $dbname = $ini['db_name'];

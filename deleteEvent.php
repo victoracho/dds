@@ -7,10 +7,11 @@ ini_set('display_errors', 'On');
 
 try {
   $ini = parse_ini_file('app.ini');
-  $servername = $ini['db_name'];
+  $servername = $ini['servername'];
   $username = $ini['db_user'];
   $password = $ini['db_password'];
   $dbname = $ini['db_name'];
+
   $_POST = json_decode(file_get_contents("php://input"), true);
   $user = $_POST['user'];
   $deal = $_POST['deal_id'];
