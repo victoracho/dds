@@ -6,7 +6,7 @@ ini_set('display_errors', 'On');
 
 try {
   $ini = parse_ini_file('app.ini');
-  $servername = $ini['db_name'];
+  $servername = $ini['servername'];
   $username = $ini['db_user'];
   $password = $ini['db_password'];
   $dbname = $ini['db_name'];
@@ -33,8 +33,8 @@ try {
     $previousStatus = $res['status'];
   }
 
-  $stmt = $conn->prepare($sql = "UPDATE appointments SET name= ?, status= ?, user_modified= ?, substatus= ?, start = ?, end = ?,  date_modified = ?, comment = ?, previous_status = ?, transportation = ?, lodging = ?, more_invoices = ? , amount = ?,  invoice_number = ?, doctor = ?. salon = ?   WHERE  id= ?");
-  $stmt->bind_param('sssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $previousStatus, $event['doctor'], $event['salon'], $eventId);
+  $stmt = $conn->prepare($sql = "UPDATE appointments SET name= ?, status= ?, user_modified= ?, substatus= ?, start = ?, end = ?,  date_modified = ?, comment = ?, previous_status = ?, doctor = ?,  salon = ?   WHERE  id= ?");
+  $stmt->bind_param('ssssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $previousStatus, $event['doctor'], $event['salon'], $eventId);
   $result = $stmt->execute();
   $conn->close();
 
@@ -43,6 +43,8 @@ try {
   );
   echo json_encode($response);
 } catch (Exception $e) {
+  var_dump($e);
+  die();
   $response = array(
     'message' => 'An error ocurred, try again'
   );

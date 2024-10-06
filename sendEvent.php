@@ -61,7 +61,7 @@ try {
   }
 
   $stmt = $conn->prepare($sql = "INSERT into appointments SET name= ?, status= ?, user= ?, substatus= ?, start = ?, end =?,  date_created = ?, comment = ?, deal_id = ?, phone = ? , lead_name = ?,  salon = ?, doctor = ? ");
-  $stmt->bind_param('sssssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $deal, $allPhones, $leadName, $salon, $doctor);
+  $stmt->bind_param('sssssssssssss', $event['title'], $event['BackgroundColor'], $user, $event['substatus'], $event['start'], $event['end'], $now, $event['text'], $deal, $allPhones, $leadName, $event['salon'], $event['doctor']);
   $result = $stmt->execute();
   $conn->close();
   $response = array(

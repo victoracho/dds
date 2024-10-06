@@ -19,8 +19,6 @@ function exportar($results)
   $sheet->setCellValue('B1', 'Fecha Hasta');
   $sheet->setCellValue('C1', 'Nombre Paciente');
   $sheet->setCellValue('D1', 'Status');
-  $sheet->setCellValue('E1', 'Estado');
-  $sheet->setCellValue('F1', 'Edad');
 
   // Escribir los datos de los pacientes
   $row = 2; // Empezamos en la fila 2 porque la 1 es para los encabezados
@@ -29,8 +27,6 @@ function exportar($results)
     $sheet->setCellValue('B' . $row, $paciente['to']);
     $sheet->setCellValue('C' . $row, $paciente['name']);
     $sheet->setCellValue('D' . $row, $paciente['status']);
-    $sheet->setCellValue('E' . $row, $paciente['state']);
-    $sheet->setCellValue('F' . $row, giveEdad($paciente['edad']));
     $row++;
   }
 
@@ -46,170 +42,6 @@ function exportar($results)
   $writer = new Xlsx($spreadsheet);
   $writer->save('php://output');
 }
-
-function giveEdad($edad)
-{
-  if ($edad != null) {
-    $edad = ($edad + 1) - 779;
-  }
-  return $edad;
-}
-
-function giveState($state)
-{
-  if ($state == 339) {
-    $state = 'Alabama';
-  }
-  if ($state == 340) {
-    $state = 'Alaska';
-  }
-  if ($state == 341) {
-    $state = 'Arizona';
-  }
-  if ($state == 342) {
-    $state = 'Arkansas';
-  }
-  if ($state == 343) {
-    $state = 'California';
-  }
-  if ($state == 344) {
-    $state = 'Colorado';
-  }
-  if ($state == 345) {
-    $state = 'Connecticut';
-  }
-  if ($state == 346) {
-    $state = 'Delaware';
-  }
-  if ($state == 347) {
-    $state = 'Florida';
-  }
-  if ($state == 348) {
-    $state = 'Georgia';
-  }
-  if ($state == 349) {
-    $state = 'Hawaii';
-  }
-  if ($state == 350) {
-    $state = 'Idaho';
-  }
-  if ($state == 351) {
-    $state = 'Illinois';
-  }
-  if ($state == 352) {
-    $state = 'Indiana';
-  }
-  if ($state == 353) {
-    $state = 'Iowa';
-  }
-  if ($state == 354) {
-    $state = 'Kansas';
-  }
-  if ($state == 355) {
-    $state = 'Kentucky';
-  }
-  if ($state == 356) {
-    $state = 'Louisiana';
-  }
-  if ($state == 357) {
-    $state = 'Maine';
-  }
-  if ($state == 358) {
-    $state = 'Maryland';
-  }
-  if ($state == 359) {
-    $state = 'Massachusetts';
-  }
-  if ($state == 360) {
-    $state = 'Michigan';
-  }
-  if ($state == 361) {
-    $state = 'Minnesota';
-  }
-  if ($state == 362) {
-    $state = 'Mississippi';
-  }
-  if ($state == 363) {
-    $state = 'Missouri';
-  }
-  if ($state == 364) {
-    $state = 'Montana';
-  }
-  if ($state == 365) {
-    $state = 'Nebraska';
-  }
-  if ($state == 366) {
-    $state = 'Nevada';
-  }
-  if ($state == 367) {
-    $state = 'New Hampshire';
-  }
-  if ($state == 368) {
-    $state = 'New Jersey';
-  }
-  if ($state == 369) {
-    $state = 'New Mexico';
-  }
-  if ($state == 370) {
-    $state = 'New York';
-  }
-  if ($state == 371) {
-    $state = 'North Carolina';
-  }
-  if ($state == 372) {
-    $state = 'North Dakota';
-  }
-  if ($state == 373) {
-    $state = 'Ohio';
-  }
-  if ($state == 374) {
-    $state = 'Oklahoma';
-  }
-  if ($state == 375) {
-    $state = 'Oregon';
-  }
-  if ($state == 376) {
-    $state = 'Pennsylvania';
-  }
-  if ($state == 377) {
-    $state = 'Rhode Island';
-  }
-  if ($state == 378) {
-    $state = 'South Carolina';
-  }
-  if ($state == 379) {
-    $state = 'South Dakota';
-  }
-  if ($state == 380) {
-    $state = 'Tennessee';
-  }
-  if ($state == 381) {
-    $state = 'Texas';
-  }
-  if ($state == 382) {
-    $state = 'Utah';
-  }
-  if ($state == 383) {
-    $state = 'Vermont';
-  }
-  if ($state == 384) {
-    $state = 'Virginia';
-  }
-  if ($state == 385) {
-    $state = 'Washington';
-  }
-  if ($state == 386) {
-    $state = 'West Virginia';
-  }
-  if ($state == 387) {
-    $state = 'Winsconsin';
-  }
-  if ($state == 388) {
-    $state = 'Wyoming';
-  }
-  return $state;
-}
-
 
 // obtengo todos los eventos
 $results = [];
@@ -386,10 +218,10 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
 
 <body>
   <div class="container">
-    <h2>Lista de citas en Miami</h2>
+    <h2>Lista de citas en Daso</h2>
     <!-- Filtros de Fecha -->
     <label for="fecha_desde">Fecha Desde:</label>
-    <form action="miamiCalendar.php" method="GET">
+    <form action="dasoCalendar.php" method="GET">
       <input type="text" id="desde" name="desde" placeholder="Selecciona la fecha desde">
       <label for="fecha_hasta">Fecha Hasta:</label>
       <input type="text" id="hasta" name="hasta" placeholder="Selecciona la fecha hasta">
