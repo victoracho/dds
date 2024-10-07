@@ -3,6 +3,15 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 require_once(__DIR__ . '/crest.php');
 // Calendario Miami  
+$calendar = CRest::call(
+  'calendar.event.get',
+  [
+    'type' => 'group',
+    'ownerId' => '4',
+    'from' => '2023-05-10',
+    'to' => '2025-10-07',
+  ],
+);
 $results = $calendar['result'];
 $results = array_map(function ($res) {
   $find = CRest::call(
@@ -41,7 +50,7 @@ $results = array_map(function ($res) {
 }, $results);
 
 $ini = parse_ini_file('app.ini');
-$servername = $ini['db_name'];
+$servername = $ini['servername'];
 $username = $ini['db_user'];
 $password = $ini['db_password'];
 $dbname = $ini['db_name'];
@@ -83,7 +92,7 @@ foreach ($results as $res) {
   }
 
   $name = $res['NAME'];
-  $substatus = '#808080';
+  $substatus = 'not specified';
 
   $start = $res['DATE_FROM'];
   if ($res['TZ_FROM'] == 'America/Anguilla') {
