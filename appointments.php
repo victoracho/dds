@@ -7,8 +7,6 @@ header("Access-Control-Allow-Origin: *");
 $range = $_GET['range'];
 $status = strtolower($_GET['status']);
 
-
-
 $substatus = $_GET['substatus'];
 if ($substatus != 'All Substatus') {
   $substatus =  "substatus = '$substatus' AND";
@@ -134,6 +132,7 @@ if (mysqli_num_rows($result) > 0) {
       ];
   }
 }
+
 mysqli_close($conn);
 
 if (empty($results)) {

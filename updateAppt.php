@@ -109,6 +109,7 @@ foreach ($results as $res) {
   /*   $start = DateTime::createFromFormat('m/d/Y h:i:s A', $start); */
   /*   $start = $start->format('Y-m-d\TH:i:s'); */
   /* } */
+
   $end = $res['DATE_TO'];
   $end = DateTime::createFromFormat('m/d/Y h:i:s A', $end);
   $end = $end->format('Y-m-d\TH:i:s');
