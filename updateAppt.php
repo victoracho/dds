@@ -8,8 +8,8 @@ $calendar = CRest::call(
   [
     'type' => 'group',
     'ownerId' => '4',
-    'from' => '2023-05-10',
-    'to' => '2025-10-07',
+    'from' => '2023-10-07',
+    'to' => '2024-10-07',
   ],
 );
 $results = $calendar['result'];
@@ -82,10 +82,10 @@ foreach ($results as $res) {
     $status = 'post-op';
   }
   if ($res['SECTION_ID'] == 19) {
-    $status = 'pre-opt appt';
+    $status = 'pre-op appt';
   }
   if ($res['SECTION_ID'] == 36) {
-    $status = 'pre-opt surgery';
+    $status = 'pre-op surgery';
   }
   if ($res['SECTION_ID'] == 18) {
     $status = 'surgery';
@@ -94,27 +94,33 @@ foreach ($results as $res) {
   $name = $res['NAME'];
   $substatus = 'not specified';
 
+  $tz_from = $res['TZ_FROM'];
+  $tz_to = $res['TZ_TO'];
   $start = $res['DATE_FROM'];
-  if ($res['TZ_FROM'] == 'America/Anguilla') {
-    $start = DateTime::createFromFormat('m/d/Y h:i:s a', $start, new DateTimeZone('America/Anguilla'));
-    $start->setTimezone(new DateTimeZone('America/New_York'));
-    $start = $start->format('Y-m-d\TH:i:s');
-  }
-  if ($res['TZ_FROM'] != 'America/Anguilla') {
-    $start = DateTime::createFromFormat('m/d/Y h:i:s A', $start);
-    $start = $start->format('Y-m-d\TH:i:s');
-  }
+  $start = DateTime::createFromFormat('m/d/Y h:i:s A', $start);
+  $start = $start->format('Y-m-d\TH:i:s');
 
+  /* if ($res['TZ_FROM'] == 'America/Anguilla') { */
+  /*   $start = DateTime::createFromFormat('m/d/Y h:i:s a', $start, new DateTimeZone('America/Anguilla')); */
+  /*   $start->setTimezone(new DateTimeZone('America/New_York')); */
+  /*   $start = $start->format('Y-m-d\TH:i:s'); */
+  /* } */
+  /* if ($res['TZ_FROM'] != 'America/Anguilla') { */
+  /*   $start = DateTime::createFromFormat('m/d/Y h:i:s A', $start); */
+  /*   $start = $start->format('Y-m-d\TH:i:s'); */
+  /* } */
   $end = $res['DATE_TO'];
-  if ($res['TZ_TO'] == 'America/Anguilla') {
-    $end = DateTime::createFromFormat('m/d/Y h:i:s a', $end, new DateTimeZone('America/Anguilla'));
-    $end->setTimezone(new DateTimeZone('America/New_York'));
-    $end = $end->format('Y-m-d\TH:i:s');
-  }
-  if ($res['TZ_TO'] != 'America/Anguilla') {
-    $end = DateTime::createFromFormat('m/d/Y h:i:s A', $end);
-    $end = $end->format('Y-m-d\TH:i:s');
-  }
+  $end = DateTime::createFromFormat('m/d/Y h:i:s A', $end);
+  $end = $end->format('Y-m-d\TH:i:s');
+  /* if ($res['TZ_TO'] == 'America/Anguilla') { */
+  /*   $end = DateTime::createFromFormat('m/d/Y h:i:s a', $end, new DateTimeZone('America/Anguilla')); */
+  /*   $end->setTimezone(new DateTimeZone('America/New_York')); */
+  /*   $end = $end->format('Y-m-d\TH:i:s'); */
+  /* } */
+  /* if ($res['TZ_TO'] != 'America/Anguilla') { */
+  /*   $end = DateTime::createFromFormat('m/d/Y h:i:s A', $end); */
+  /*   $end = $end->format('Y-m-d\TH:i:s'); */
+  /* } */
 
   /* $timezone = new DateTimeZone('America/New_York'); */
   /* $start = DateTime::createFromFormat('m/d/Y h:i:s a', $start, $timezone); */
@@ -137,8 +143,8 @@ foreach ($results as $res) {
     }
   }
 
-  $stmt = $conn->prepare($sql = "INSERT into appointments SET deal_id = ? , name= ?, status= ?, user= ?, substatus= ?, start = ?, end = ?, comment = ?, id_event = ?, doctor = ?, salon = ?");
-  $stmt->bind_param('sssssssssss', $deal_id, $name, $status, $user, $substatus, $start, $end, $comentary, $id_event, $doctor, $salon);
+  $stmt = $conn->prepare($sql = "INSERT into appointments SET deal_id = ? , name= ?, status= ?, user= ?, substatus= ?, start = ?, end = ?, comment = ?, id_event = ?, doctor = ?, salon = ?, tz_from = ? , tz_to = ?");
+  $stmt->bind_param('sssssssssssss', $deal_id, $name, $status, $user, $substatus, $start, $end, $comentary, $id_event, $doctor, $salon, $tz_from, $tz_to);
   $result = $stmt->execute();
 }
 $conn->close();

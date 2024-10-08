@@ -8,6 +8,7 @@ $range = $_GET['range'];
 $status = strtolower($_GET['status']);
 
 
+
 $substatus = $_GET['substatus'];
 if ($substatus != 'All Substatus') {
   $substatus =  "substatus = '$substatus' AND";
@@ -91,6 +92,9 @@ if (mysqli_num_rows($result) > 0) {
     }
 
     // substatus 
+    if ($res['substatus'] == 'not specified') {
+      $substatus = '#F0F0F0';
+    }
     if ($res['substatus'] == 'simple') {
       $substatus = '#15870b';
     }
