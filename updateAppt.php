@@ -7,7 +7,7 @@ $calendar = CRest::call(
   'calendar.event.get',
   [
     'type' => 'group',
-    'ownerId' => '4',
+    'ownerId' => '5',
     'from' => '2023-05-10',
     'to' => '2025-10-07',
   ],
