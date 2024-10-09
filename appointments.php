@@ -50,6 +50,7 @@ if (!$conn) {
 if (empty($status)) {
   $status = null;
 }
+
 $sql = "SELECT * FROM appointments where $substatus $doctor $salon status in ('$status') AND start between '$range[0]' AND '$range[1]' ";
 
 $result = mysqli_query($conn, $sql);
@@ -170,7 +171,7 @@ foreach ($results as $res) {
     $quantity['post-op']++;
   }
   if ($res['status'] == 'pre-op appt') {
-    $quantity['post-op']++;
+    $quantity['post-op appt']++;
   }
   if ($res['status'] == 'pre-op surgery') {
     $quantity['pre-op surgery']++;
@@ -182,7 +183,6 @@ foreach ($results as $res) {
     $quantity['missing-appointment']++;
   }
 }
-
 $results = json_encode(array(
   'results' => $results,
   'quantity' => $quantity

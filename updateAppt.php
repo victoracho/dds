@@ -8,8 +8,8 @@ $calendar = CRest::call(
   [
     'type' => 'group',
     'ownerId' => '4',
-    'from' => '2023-10-07',
-    'to' => '2024-10-07',
+    'from' => '2024-10-09',
+    'to' => '2025-09-19',
   ],
 );
 $results = $calendar['result'];
@@ -96,6 +96,7 @@ foreach ($results as $res) {
 
   $tz_from = $res['TZ_FROM'];
   $tz_to = $res['TZ_TO'];
+
   $start = $res['DATE_FROM'];
   $start = DateTime::createFromFormat('m/d/Y h:i:s A', $start);
   $start = $start->format('Y-m-d\TH:i:s');

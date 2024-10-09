@@ -104,8 +104,6 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
   }
 
   $sql = "SELECT * FROM appointments where start between '$desde' AND '$hasta' and deal_id is not null and status is not null";
-
-
   $result = mysqli_query($conn, $sql);
   $results = [];
 
