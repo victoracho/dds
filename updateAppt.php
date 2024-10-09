@@ -8,8 +8,8 @@ $calendar = CRest::call(
   [
     'type' => 'group',
     'ownerId' => '4',
-    'from' => '2024-05-09',
-    'to' => '2025-09-19',
+    'from' => '2025-01-01',
+    'to' => '2025-09-20',
   ],
 );
 $results = $calendar['result'];
