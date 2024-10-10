@@ -7,7 +7,7 @@ $calendar = CRest::call(
   'calendar.event.get',
   [
     'type' => 'group',
-    'ownerId' => '5',
+    'ownerId' => '1',
     'from' => '2023-05-10',
     'to' => '2025-10-07',
   ],
@@ -63,31 +63,13 @@ if ($conn->connect_error) {
 }
 
 foreach ($results as $res) {
-  if ($res['SECTION_ID'] == 65) {
+  if ($res['SECTION_ID'] == 7) {
     $status = 'evaluation';
   }
-  if ($res['SECTION_ID'] == 66) {
+  if ($res['SECTION_ID'] == 11) {
     $status = 'follow up';
   }
-  if ($res['SECTION_ID'] == 83) {
-    $status = 'hyperbaric chamber';
-  }
-  if ($res['SECTION_ID'] == 67) {
-    $status = 'labs';
-  }
-  if ($res['SECTION_ID'] == 68) {
-    $status = 'massage';
-  }
-  if ($res['SECTION_ID'] == 69) {
-    $status = 'post-op';
-  }
-  if ($res['SECTION_ID'] ==  70) {
-    $status = 'pre-opt appt';
-  }
-  if ($res['SECTION_ID'] == 71) {
-    $status = 'pre-opt surgery';
-  }
-  if ($res['SECTION_ID'] == 72) {
+  if ($res['SECTION_ID'] == 10) {
     $status = 'surgery';
   }
 

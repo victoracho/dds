@@ -91,7 +91,7 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
   $servername = "16.171.204.95";
   $username = "bitrix";
   $password = "8726231";
-  $dbname = "design";
+  $dbname = "eyescolorlab";
   // Create connection
   $conn = mysqli_connect($servername, $username, $password, $dbname);
   // Check connection
@@ -182,10 +182,10 @@ if (isset($_GET['exportar'])) {
 
 <body>
   <div class="container">
-    <h2>Lista de citas en design</h2>
+    <h2>Lista de citas en eyes color labs</h2>
     <!-- Filtros de Fecha -->
     <label for="fecha_desde">Fecha Desde:</label>
-    <form action="designCalendar.php" method="GET">
+    <form action="eyescolorCalendar.php" method="GET">
       <input type="text" id="desde" name="desde" placeholder="Selecciona la fecha desde">
       <label for="fecha_hasta">Fecha Hasta:</label>
       <input type="text" id="hasta" name="hasta" placeholder="Selecciona la fecha hasta">

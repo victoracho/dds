@@ -7,30 +7,12 @@ header("Access-Control-Allow-Origin: *");
 $range = $_GET['range'];
 $status = strtolower($_GET['status']);
 
-
-
 $substatus = $_GET['substatus'];
 if ($substatus != 'All Substatus') {
   $substatus =  "substatus = '$substatus' AND";
 }
 if ($substatus === 'All Substatus') {
   $substatus = null;
-}
-
-$doctor = $_GET['doctor'];
-if ($doctor != 'All Doctors') {
-  $doctor =  "doctor = '$doctor' AND";
-}
-if ($doctor === 'All Doctors') {
-  $doctor = null;
-}
-
-$salon = $_GET['salon'];
-if ($salon != 'All Salons') {
-  $salon =  "salon= '$salon' AND";
-}
-if ($salon === 'All Salons') {
-  $salon = null;
 }
 
 $range = explode(",", $range);
@@ -52,7 +34,7 @@ if (!$conn) {
 if (empty($status)) {
   $status = null;
 }
-$sql = "SELECT * FROM appointments where $substatus $doctor $salon status in ('$status') AND start between '$range[0]' AND '$range[1]' ";
+$sql = "SELECT * FROM appointments where $salon status in ('$status') AND start between '$range[0]' AND '$range[1]' ";
 
 $result = mysqli_query($conn, $sql);
 $results = [];
@@ -61,34 +43,13 @@ if (mysqli_num_rows($result) > 0) {
   // output data of each row
   while ($res = mysqli_fetch_assoc($result)) {
     if ($res['status'] == 'evaluation') {
-      $status = '#00afc7';
-    }
-    if ($res['status'] == 'follow up') {
-      $status = '#10e5fc';
-    }
-    if ($res['status'] == 'hyperbaric chamber') {
       $status = '#bd7ac9';
     }
-    if ($res['status'] == 'labs') {
-      $status = '#e89b06';
-    }
-    if ($res['status'] == 'massage') {
-      $status = '#e97090';
-    }
-    if ($res['status'] == 'post-op') {
-      $status = '#00ff00';
-    }
-    if ($res['status'] == 'pre-op appt') {
+    if ($res['status'] == 'follow up') {
       $status = '#fff300';
-    }
-    if ($res['status'] == 'pre-op surgery') {
-      $status = '#f69ac1';
     }
     if ($res['status'] == 'surgery') {
       $status = '#86b100';
-    }
-    if ($res['status'] == 'missing-appointment') {
-      $status = '#7b03fc';
     }
 
     // substatus 
@@ -142,14 +103,7 @@ if (empty($results)) {
 $quantity = array(
   'evaluation' => 0,
   'follow up' => 0,
-  'hyperbaric chamber' => 0,
-  'labs' => 0,
-  'massage' => 0,
-  'post-op' => 0,
-  'pre-op appt' => 0,
-  'pre-op surgery' => 0,
   'surgery' => 0,
-  'missing-appointment' => 0,
 );
 foreach ($results as $res) {
   if ($res['status'] == 'evaluation') {
@@ -158,29 +112,8 @@ foreach ($results as $res) {
   if ($res['status'] == 'follow up') {
     $quantity['follow up']++;
   }
-  if ($res['status'] == 'hyperbaric chamber') {
-    $quantity['hyperbaric chamber']++;
-  }
-  if ($res['status'] == 'labs') {
-    $quantity['labs']++;
-  }
-  if ($res['status'] == 'massage') {
-    $quantity['massage']++;
-  }
-  if ($res['status'] == 'post-op') {
-    $quantity['post-op']++;
-  }
-  if ($res['status'] == 'pre-op appt') {
-    $quantity['post-op']++;
-  }
-  if ($res['status'] == 'pre-op surgery') {
-    $quantity['pre-op surgery']++;
-  }
   if ($res['status'] == 'surgery') {
     $quantity['surgery']++;
-  }
-  if ($res['status'] == 'missing-appointment') {
-    $quantity['missing-appointment']++;
   }
 }
 
