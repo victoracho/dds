@@ -51,6 +51,9 @@ if (mysqli_num_rows($result) > 0) {
     if ($res['status'] == 'surgery') {
       $status = '#86b100';
     }
+    if ($res['status'] == 'missing-appointment') {
+      $status = '#333';
+    }
 
     // substatus 
     if ($res['substatus'] == 'not specified') {
