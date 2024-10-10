@@ -34,7 +34,7 @@ if (!$conn) {
 if (empty($status)) {
   $status = null;
 }
-$sql = "SELECT * FROM appointments where $salon status in ('$status') AND start between '$range[0]' AND '$range[1]' ";
+$sql = "SELECT * FROM appointments where $substatus status in ('$status') AND start between '$range[0]' AND '$range[1]' ";
 
 $result = mysqli_query($conn, $sql);
 $results = [];
