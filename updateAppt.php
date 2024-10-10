@@ -63,31 +63,31 @@ if ($conn->connect_error) {
 }
 
 foreach ($results as $res) {
-  if ($res['SECTION_ID'] == 34) {
+  if ($res['SECTION_ID'] == 65) {
     $status = 'evaluation';
   }
-  if ($res['SECTION_ID'] == 37) {
+  if ($res['SECTION_ID'] == 66) {
     $status = 'follow up';
   }
-  if ($res['SECTION_ID'] == 84) {
+  if ($res['SECTION_ID'] == 83) {
     $status = 'hyperbaric chamber';
   }
-  if ($res['SECTION_ID'] == 63) {
+  if ($res['SECTION_ID'] == 67) {
     $status = 'labs';
   }
-  if ($res['SECTION_ID'] == 32) {
+  if ($res['SECTION_ID'] == 68) {
     $status = 'massage';
   }
-  if ($res['SECTION_ID'] == 33) {
+  if ($res['SECTION_ID'] == 69) {
     $status = 'post-op';
   }
-  if ($res['SECTION_ID'] == 19) {
+  if ($res['SECTION_ID'] ==  70) {
     $status = 'pre-opt appt';
   }
-  if ($res['SECTION_ID'] == 36) {
+  if ($res['SECTION_ID'] == 71) {
     $status = 'pre-opt surgery';
   }
-  if ($res['SECTION_ID'] == 18) {
+  if ($res['SECTION_ID'] == 72) {
     $status = 'surgery';
   }
 
@@ -95,26 +95,22 @@ foreach ($results as $res) {
   $substatus = 'not specified';
 
   $start = $res['DATE_FROM'];
-  if ($res['TZ_FROM'] == 'America/Anguilla') {
-    $start = DateTime::createFromFormat('m/d/Y h:i:s a', $start, new DateTimeZone('America/Anguilla'));
-    $start->setTimezone(new DateTimeZone('America/New_York'));
-    $start = $start->format('Y-m-d\TH:i:s');
-  }
-  if ($res['TZ_FROM'] != 'America/Anguilla') {
-    $start = DateTime::createFromFormat('m/d/Y h:i:s A', $start);
-    $start = $start->format('Y-m-d\TH:i:s');
-  }
+  $start = DateTime::createFromFormat('m/d/Y h:i:s A', $start);
+  $start = $start->format('Y-m-d\TH:i:s');
+
+  /* if ($res['TZ_FROM'] == 'America/Anguilla') { */
+  /*   $start = DateTime::createFromFormat('m/d/Y h:i:s a', $start, new DateTimeZone('America/Anguilla')); */
+  /*   $start->setTimezone(new DateTimeZone('America/New_York')); */
+  /*   $start = $start->format('Y-m-d\TH:i:s'); */
+  /* } */
+  /* if ($res['TZ_FROM'] != 'America/Anguilla') { */
+  /*   $start = DateTime::createFromFormat('m/d/Y h:i:s A', $start); */
+  /*   $start = $start->format('Y-m-d\TH:i:s'); */
+  /* } */
 
   $end = $res['DATE_TO'];
-  if ($res['TZ_TO'] == 'America/Anguilla') {
-    $end = DateTime::createFromFormat('m/d/Y h:i:s a', $end, new DateTimeZone('America/Anguilla'));
-    $end->setTimezone(new DateTimeZone('America/New_York'));
-    $end = $end->format('Y-m-d\TH:i:s');
-  }
-  if ($res['TZ_TO'] != 'America/Anguilla') {
-    $end = DateTime::createFromFormat('m/d/Y h:i:s A', $end);
-    $end = $end->format('Y-m-d\TH:i:s');
-  }
+  $end = DateTime::createFromFormat('m/d/Y h:i:s A', $end);
+  $end = $end->format('Y-m-d\TH:i:s');
 
   /* $timezone = new DateTimeZone('America/New_York'); */
   /* $start = DateTime::createFromFormat('m/d/Y h:i:s a', $start, $timezone); */
