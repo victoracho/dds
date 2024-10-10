@@ -51,7 +51,7 @@ if (mysqli_num_rows($result) > 0) {
     if ($res['status'] == 'surgery') {
       $status = '#86b100';
     }
-    if ($res['status'] == 'missing-appointment') {
+    if ($res['status'] == 'deleted') {
       $status = '#333';
     }
 
@@ -107,6 +107,7 @@ $quantity = array(
   'evaluation' => 0,
   'follow up' => 0,
   'surgery' => 0,
+  'deleted' => 0,
 );
 foreach ($results as $res) {
   if ($res['status'] == 'evaluation') {
@@ -117,6 +118,9 @@ foreach ($results as $res) {
   }
   if ($res['status'] == 'surgery') {
     $quantity['surgery']++;
+  }
+  if ($res['status'] == 'deleted') {
+    $quantity['deleted']++;
   }
 }
 

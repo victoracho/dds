@@ -4,17 +4,10 @@ require_once(__DIR__ . '/crest.php');
 
 $results = [];
 $next = '0';
-$contact = crest::call(
-  'imopenlines.crm.chat.get',
-  [
-    'CRM_ENTITY_TYPE' => '',
-    'CRM_ENTITY' => 48392,
-  ],
-);
 
 do {
   $lead = CRest::call(
-    'crm.lead.list',
+    'crm.deal.list',
     [
       'filter' => ['STATUS_ID' => 'UC_LSS7ZV'],
       'start' => $next,

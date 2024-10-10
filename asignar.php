@@ -12,9 +12,9 @@ $results = [];
 $next = '0';
 do {
   $lead = CRest::call(
-    'crm.lead.list',
+    'crm.deal.list',
     [
-      'filter' => ['<DATE_MODIFY' => '2024-05-26T16:38:29-04:00', 'STATUS_ID' => 'UC_ISOPF0'],
+      'filter' => ['>DATE_MODIFY' => '2024-05-26T16:38:29-04:00', 'STATUS_ID' => 'UC_ISOPF0'],
       'start' => $next,
       'select' => ['ID', 'DATE_MODIFY', 'ASSIGNED_BY_ID'],
     ],
