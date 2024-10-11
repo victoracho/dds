@@ -49,11 +49,11 @@ $results = array_map(function ($res) {
   return $find;
 }, $results);
 
-$servername = "16.171.204.95";
-$username = "bitrix";
-$password = "8726231";
-$dbname = "miami";
-
+/* $servername = "16.171.204.95"; */
+/* $username = "bitrix"; */
+/* $password = "8726231"; */
+/* $dbname = "miami"; */
+/**/
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
