@@ -80,7 +80,7 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
   $servername = "16.171.204.95";
   $username = "bitrix";
   $password = "8726231";
-  $dbname = "newJersey";
+  $dbname = "newJerseyCalendar.php";
   // Create connection
   $conn = mysqli_connect($servername, $username, $password, $dbname);
   // Check connection
@@ -92,7 +92,7 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
     $status = null;
   }
 
-  $sql = "SELECT * FROM appointments where start between '$desde' AND '$hasta' and deal_id is not null and status is not null and status !='deleted' ";
+  $sql = "SELECT * FROM appointments where start between '$desde' AND '$hasta' and status is not null and status !='deleted' ";
 
 
   $result = mysqli_query($conn, $sql);
@@ -203,20 +203,24 @@ if (isset($_GET['exportar'])) {
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 </head>
 
 <body>
   <div class="container">
-    <h2>Lista de citas en New Jersey</h2>
+    <h2>Lista de citas en new Jersey</h2>
     <!-- Filtros de Fecha -->
     <label for="fecha_desde">Fecha Desde:</label>
-    <form action="newJerseyCalendar.php" method="GET">
+    <form action="newJersey.php" method="GET">
       <input type="text" id="desde" name="desde" placeholder="Selecciona la fecha desde">
       <label for="fecha_hasta">Fecha Hasta:</label>
       <input type="text" id="hasta" name="hasta" placeholder="Selecciona la fecha hasta">
       <button submit id="filtrar">Filtrar</button>
-      <button submit id="exportar" name="exportar" type="submit">Exportar a Excel</button>
     </form>
+    <br>
+    <div class="fichecenter" id="print_block" style="text-align: center;">
+      <button class="butAction" id="pdf" style="background-color: #944000 !important;">Exportar Pdf<span class="fa fa-print atoplogin valignmiddle"></span></button><button class="butAction" id="excel" style="background-color: #944000 !important;">Exportar a Excel <span class="fa fa-print atoplogin valignmiddle"></span></button>
+    </div>
     <table id="tablaPacientes" class="display">
       <thead>
         <tr>
@@ -272,9 +276,54 @@ if (isset($_GET['exportar'])) {
       });
       // Insertar datos en la tabla
       var table = $('#tablaPacientes').DataTable();
+      $('#excel').click(function() {
+        function downloadExcelTable(tableID, filename = '') {
+          const linkToDownloadFile = document.
+          createElement("a");
+          const fileType = 'application/vnd.ms-excel';
+          const selectedTable = document.getElementById('tablaPacientes');
+
+          const selectedTableHTML = selectedTable.outerHTML.
+          replace(/ /g, '%20');
+          const selected = selectedTableHTML;
+          filename = filename ? filename + '.xls' :
+            'excel_data.xls';
+          document.body.appendChild(linkToDownloadFile);
+
+          if (navigator.msSaveOrOpenBlob) {
+            const myBlob = new Blob(['\ufeff',
+              selected
+            ], {
+              type: fileType
+            });
+            navigator.msSaveOrOpenBlob(myBlob, filename);
+          } else {
+            // Create a link to download
+            // the excel the file
+            linkToDownloadFile.href = 'data:' + fileType +
+              ', ' + selected;
+
+            // Setting the name of
+            // the downloaded file
+            linkToDownloadFile.download = filename;
+
+            // Clicking the download link
+            // on click to the button
+            linkToDownloadFile.click();
+          }
+        }
+        downloadExcelTable('tablaPacientes', 'employeeData');
+      });
+      $('#pdf').click(function() {
+        var elemento = document.getElementById('tablaPacientes');
+        html2pdf()
+          .from(elemento)
+          .save();
+
+      });
+
     });
   </script>
 </body>
 
 </html>
-
