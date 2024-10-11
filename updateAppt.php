@@ -118,15 +118,5 @@ foreach ($results as $res) {
   $stmt = $conn->prepare($sql = "INSERT into appointments SET deal_id = ? , name= ?, status= ?, user= ?, substatus= ?, start = ?, end = ?, comment = ?, id_event = ? ");
   $stmt->bind_param('sssssssss', $deal_id, $name, $status, $user, $substatus, $start, $end, $comentary, $id_event);
   $result = $stmt->execute();
-  $comment = CRest::call(
-    'crm.timeline.comment.add',
-    [
-      'fields' =>  [
-        'ENTITY_ID' => $deal_id,
-        'ENTITY_TYPE' => "deal",
-        'COMMENT' => "Se ha modificado un evento del tipo: " . $status . ' Desde : ' . $start . ' Hasta : ' . $end . ' por: ' . $user . ' para Eyes Color Labs'
-      ],
-    ],
-  );
 }
 $conn->close();
