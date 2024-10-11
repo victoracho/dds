@@ -81,7 +81,7 @@ try {
       'fields' =>  [
         'ENTITY_ID' => $deal,
         'ENTITY_TYPE' => "deal",
-        'COMMENT' => "Se ha creado un evento del tipo: " . $event['BackgroundColor'] . ' Desde : ' . $desde . ' Hasta : ' . $hasta . ' creado por: ' . $user . ' Para Daso calendar con el doctor: ' . $doctor . ' en el salon: ' . $salon
+        'COMMENT' => "Se ha creado un evento del tipo: " . $event['BackgroundColor'] . ' Desde : ' . $desde . ' Hasta : ' . $hasta . ' creado por: ' . $user . ' para Eyes Color Labs'
       ],
     ],
   );
