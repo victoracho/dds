@@ -19,18 +19,20 @@ function exportar($results)
   $sheet->setCellValue('B1', 'Fecha Hasta');
   $sheet->setCellValue('C1', 'Nombre Paciente');
   $sheet->setCellValue('D1', 'Status');
-  $sheet->setCellValue('E1', 'Estado');
-  $sheet->setCellValue('F1', 'Edad');
+  $sheet->setCellValue('E1', 'Substatus');
+  $sheet->setCellValue('F1', 'Estado');
+  $sheet->setCellValue('G1', 'Edad');
 
   // Escribir los datos de los pacientes
   $row = 2; // Empezamos en la fila 2 porque la 1 es para los encabezados
   foreach ($results as $paciente) {
-    $sheet->setCellValue('A' . $row, $paciente['from']);
-    $sheet->setCellValue('B' . $row, $paciente['to']);
-    $sheet->setCellValue('C' . $row, $paciente['name']);
+    $sheet->setCellValue('A' . $row, $paciente['start']);
+    $sheet->setCellValue('B' . $row, $paciente['end']);
+    $sheet->setCellValue('C' . $row, $paciente['title']);
     $sheet->setCellValue('D' . $row, $paciente['status']);
-    $sheet->setCellValue('E' . $row, $paciente['state']);
-    $sheet->setCellValue('F' . $row, giveEdad($paciente['edad']));
+    $sheet->setCellValue('E' . $row, $paciente['substatus']);
+    $sheet->setCellValue('F' . $row, $paciente['estado']);
+    $sheet->setCellValue('G' . $row, $paciente['edad']);
     $row++;
   }
 
@@ -39,183 +41,30 @@ function exportar($results)
 
   // Enviar el archivo al navegador para la descarga
   header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-  header('Content-Disposition: attachment;filename="' . $filename . '"');
+  header('Content-Disposition: attachment;filename="archivo.xlsx"');
   header('Cache-Control: max-age=0');
+  header('Cache-Control: max-age=1'); // Requerido para IE11 y versiones anteriores
+
+  // Evitar almacenamiento en caché
+  header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+  header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+  header('Cache-Control: cache, must-revalidate'); // Para HTTP/1.1
+  header('Pragma: public'); // Para HTTP/1.0
 
   // Crear el escritor de Excel y guardar el archivo en la salida
   $writer = new Xlsx($spreadsheet);
   $writer->save('php://output');
 }
 
-function giveEdad($edad)
-{
-  if ($edad != null) {
-    $edad = ($edad + 1) - 779;
-  }
-  return $edad;
-}
-
-function giveState($state)
-{
-  if ($state == 339) {
-    $state = 'Alabama';
-  }
-  if ($state == 340) {
-    $state = 'Alaska';
-  }
-  if ($state == 341) {
-    $state = 'Arizona';
-  }
-  if ($state == 342) {
-    $state = 'Arkansas';
-  }
-  if ($state == 343) {
-    $state = 'California';
-  }
-  if ($state == 344) {
-    $state = 'Colorado';
-  }
-  if ($state == 345) {
-    $state = 'Connecticut';
-  }
-  if ($state == 346) {
-    $state = 'Delaware';
-  }
-  if ($state == 347) {
-    $state = 'Florida';
-  }
-  if ($state == 348) {
-    $state = 'Georgia';
-  }
-  if ($state == 349) {
-    $state = 'Hawaii';
-  }
-  if ($state == 350) {
-    $state = 'Idaho';
-  }
-  if ($state == 351) {
-    $state = 'Illinois';
-  }
-  if ($state == 352) {
-    $state = 'Indiana';
-  }
-  if ($state == 353) {
-    $state = 'Iowa';
-  }
-  if ($state == 354) {
-    $state = 'Kansas';
-  }
-  if ($state == 355) {
-    $state = 'Kentucky';
-  }
-  if ($state == 356) {
-    $state = 'Louisiana';
-  }
-  if ($state == 357) {
-    $state = 'Maine';
-  }
-  if ($state == 358) {
-    $state = 'Maryland';
-  }
-  if ($state == 359) {
-    $state = 'Massachusetts';
-  }
-  if ($state == 360) {
-    $state = 'Michigan';
-  }
-  if ($state == 361) {
-    $state = 'Minnesota';
-  }
-  if ($state == 362) {
-    $state = 'Mississippi';
-  }
-  if ($state == 363) {
-    $state = 'Missouri';
-  }
-  if ($state == 364) {
-    $state = 'Montana';
-  }
-  if ($state == 365) {
-    $state = 'Nebraska';
-  }
-  if ($state == 366) {
-    $state = 'Nevada';
-  }
-  if ($state == 367) {
-    $state = 'New Hampshire';
-  }
-  if ($state == 368) {
-    $state = 'New Jersey';
-  }
-  if ($state == 369) {
-    $state = 'New Mexico';
-  }
-  if ($state == 370) {
-    $state = 'New York';
-  }
-  if ($state == 371) {
-    $state = 'North Carolina';
-  }
-  if ($state == 372) {
-    $state = 'North Dakota';
-  }
-  if ($state == 373) {
-    $state = 'Ohio';
-  }
-  if ($state == 374) {
-    $state = 'Oklahoma';
-  }
-  if ($state == 375) {
-    $state = 'Oregon';
-  }
-  if ($state == 376) {
-    $state = 'Pennsylvania';
-  }
-  if ($state == 377) {
-    $state = 'Rhode Island';
-  }
-  if ($state == 378) {
-    $state = 'South Carolina';
-  }
-  if ($state == 379) {
-    $state = 'South Dakota';
-  }
-  if ($state == 380) {
-    $state = 'Tennessee';
-  }
-  if ($state == 381) {
-    $state = 'Texas';
-  }
-  if ($state == 382) {
-    $state = 'Utah';
-  }
-  if ($state == 383) {
-    $state = 'Vermont';
-  }
-  if ($state == 384) {
-    $state = 'Virginia';
-  }
-  if ($state == 385) {
-    $state = 'Washington';
-  }
-  if ($state == 386) {
-    $state = 'West Virginia';
-  }
-  if ($state == 387) {
-    $state = 'Winsconsin';
-  }
-  if ($state == 388) {
-    $state = 'Wyoming';
-  }
-  return $state;
-}
-
-
 // obtengo todos los eventos
 $results = [];
 if (isset($_GET['desde']) && $_GET['desde'] != null) {
 
   $desde =  $_GET['desde'];
+  $fechaObj = DateTime::createFromFormat('d/m/Y', $desde);
+  $formatoISO = $fechaObj->format('Y-m-d\TH:i:s');
+
+
   $desde = DateTime::createFromFormat('d/m/Y', $desde);
   $desde = $desde->format('Y-m-d');
 
@@ -223,150 +72,121 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
   $hasta = DateTime::createFromFormat('d/m/Y', $hasta);
   $hasta = $hasta->format('Y-m-d');
 
-  $arData = [
-    'crm_source_status' => [
-      'method' => 'calendar.event.get',
-      'params' => [
-        'type' => 'group',
-        'ownerId' => '6',
-        'from' => $desde,
-        'to' => $hasta,
-        'section' => [91, 92, 93, 94, 95],
-      ]
-    ]
-  ];
-
-  $result = CRest::callBatch($arData, $halt = 0);
-  $query = [];
-  $results = $result['result']['result']['crm_source_status'];
-  foreach ($results as $res) {
-    $query['execution' . $res['ID']] = [
-      'method' => 'calendar.event.getbyid',
-      'params' => [
-        'id' => $res['ID'],
-      ]
-    ];
+  if ($desde == $hasta) {
+    $desde = $desde . 'T00:00:00';
+    $hasta = $hasta . 'T23:59:00';
   }
 
-  $query = array_chunk($query, 50);
-  $result = [];
-  //se obtienen de nuevo con este metodo para el deal_id
-  $allEvents = [];
-  foreach ($query as $qr) {
-    $results = CRest::callBatch($qr, $halt = 0);
-    $allEvents = array_merge($allEvents, $results['result']['result']);
+  $servername = "16.171.204.95";
+  $username = "bitrix";
+  $password = "8726231";
+  $dbname = "newJersey";
+  // Create connection
+  $conn = mysqli_connect($servername, $username, $password, $dbname);
+  // Check connection
+  if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
   }
-  $queries = [];
+
+  if (empty($status)) {
+    $status = null;
+  }
+
+  $sql = "SELECT * FROM appointments where start between '$desde' AND '$hasta' and deal_id is not null and status is not null and status !='deleted' ";
+
+
+  $result = mysqli_query($conn, $sql);
   $results = [];
-  foreach ($allEvents as $find) {
-    if ($find['SECTION_ID'] == 92) {
-      $status = 'evaluation';
-    }
-    if ($find['SECTION_ID'] == 93) {
-      $status = 'free eval';
-    }
-    if ($find['SECTION_ID'] == 94) {
-      $status = 're-evaluation';
-    }
-    if ($find['SECTION_ID'] == 91) {
-      $status = 'emergency';
-    }
-    if ($find['SECTION_ID'] == 95) {
-      $status = 'vip';
-    }
 
-    $deal_id = null;
-    if (isset($find['~DESCRIPTION'])) {
-      $description = $find['~DESCRIPTION'];
-      // obtenemos el deal_id de un href
-      if ($description != null) {
-        $dom = new DOMDocument();
-        @$dom->loadHTML($description);
-        $links = $dom->getElementsByTagName('a');
-        foreach ($links as $link) {
-          $deal_id = $link->getAttribute('href');
-          $deal_id = explode('/', $deal_id);
-          $deal_id = $deal_id[4];
-        }
-      }
-    }
-    $from = $find['DATE_FROM'];
-    if ($find['TZ_FROM'] == 'Europe/Dublin') {
-      // Crear un objeto DateTime con la zona horaria de Dublín
-      $from = DateTime::createFromFormat('m/d/Y h:i:s a', $from, new DateTimeZone('Europe/Dublin'));
+  if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while ($res = mysqli_fetch_assoc($result)) {
+      $from = new DateTime($res['start']);
+      $from = $from->format("Y/m/d H:i");
 
-      // Cambiar la zona horaria a Nueva York
-      $from->setTimezone(new DateTimeZone('America/New_York'));
+      $end = new DateTime($res['end']);
+      $end = $end->format("Y/m/d H:i");
 
-      // Imprimir la fecha y hora convertida
-      $from = $from->format('m/d/Y h:i:s a');
-    }
-    $to = $find['DATE_TO'];
-    if ($find['TZ_TO'] == 'Europe/Dublin') {
-      // Crear un objeto DateTime con la zona horaria de Dublín
-      $to = DateTime::createFromFormat('m/d/Y h:i:s a', $to, new DateTimeZone('Europe/Dublin'));
 
-      // Cambiar la zona horaria a Nueva York
-      $to->setTimezone(new DateTimeZone('America/New_York'));
-
-      // Imprimir la fecha y hora convertida
-      $to = $to->format('m/d/Y h:i:s a');
-    }
-
-    $event = [
-      'name' => $find['NAME'],
-      'from' => $from,
-      'to' => $to,
-      'status' => $status,
-      'deal_id' => $deal_id,
-      'state' => null,
-      'edad' => null
-    ];
-    $results[] = $event;
-    if ($deal_id != null) {
-      $queries[$deal_id] = [
-        'method' => 'crm.deal.list',
-        'params' => [
-          'filter' => [
-            'ID' => (int) $deal_id
-          ],
-          'select' => [
-            'UF_CRM_6596BEA5BA903',
-            'UF_CRM_1722807403'
-          ]
-        ]
-      ];
+      $results[] =
+        [
+          'id' => $res['id'],
+          'deal_id' => $res['deal_id'],
+          'substatusColor' => $res['substatus'],
+          'allDay' => false,
+          'title' => $res['name'],
+          'status' => $res['status'],
+          'start' => $from,
+          'end' => $end,
+          'comment' => $res['comment'],
+          'substatus' => $res['substatus'],
+          'phone' => $res['phone'],
+          'user' => $res['user'],
+          'amount' => $res['amount'],
+          'invoice_number' => $res['invoice_number'],
+          'lodging' => $res['lodging'],
+          'more_invoices' => $res['more_invoices'],
+          'edad' => $res['edad'],
+          'estado' => $res['estado'],
+          'transportation' => $res['transportation'],
+          'previous_status' => $res['previous_status'],
+          'user_modified' => $res['user_modified'],
+          'date_created' => $res['date_created'],
+          'date_modified' => $res['date_modified']
+        ];
     }
   }
+  mysqli_close($conn);
 
-  $queries = array_chunk($queries, 50);
-  $allEvents = [];
-  foreach ($queries as $query) {
-    $execute = CRest::callBatch($query, $halt = 0);
-    $allEvents = array_merge($allEvents, $execute['result']['result']);
+  if (empty($results)) {
+    $results[] = [];
   }
-  $arr = [];
-  foreach ($allEvents as $event) {
-    if (isset($event[0])) {
-      $state = $event[0]['UF_CRM_6596BEA5BA903'];
-      $edad = $event[0]['UF_CRM_1722807403'];
-      $state = giveState($state);
-      $arr[$event[0]['ID']] = array(
-        'state' => $state,
-        'edad' => $edad
-      );
+  $quantity = array(
+    'free eval' => 0,
+    'evaluation' => 0,
+    're-evaluation' => 0,
+    'emergency' => 0,
+    'vip' => 0,
+    'missing-appointment' => 0,
+    'payed' => 0,
+    'not payed' => 0,
+    'deleted' => 0,
+  );
+  foreach ($results as $res) {
+    if ($res['status'] == 'free eval') {
+      $quantity['free eval']++;
     }
-  }
-  foreach ($results as &$result) {
-    if (array_key_exists($result['deal_id'], $arr)) {
-      $result['state'] = $arr[$result['deal_id']]['state'];
-      $result['edad'] = $arr[$result['deal_id']]['edad'];
+    if ($res['status'] == 'evaluation') {
+      $quantity['evaluation']++;
     }
-  }
-  if (isset($_GET['exportar'])) {
-    exportar($results);
+    if ($res['status'] == 're-evaluation') {
+      $quantity['re-evaluation']++;
+    }
+    if ($res['status'] == 'emergency') {
+      $quantity['emergency']++;
+    }
+    if ($res['status'] == 'vip') {
+      $quantity['vip']++;
+    }
+    if ($res['status'] == 'missing-appointment') {
+      $quantity['missing-appointment']++;
+    }
+    if ($res['status'] == 'payed') {
+      $quantity['payed']++;
+    }
+    if ($res['status'] == 'not payed') {
+      $quantity['not payed']++;
+    }
+    if ($res['status'] == 'deleted') {
+      $quantity['deleted']++;
+    }
   }
 }
+
+if (isset($_GET['exportar'])) {
+  exportar($results);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -387,7 +207,7 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
 
 <body>
   <div class="container">
-    <h2>Listado de citas en New Jersey</h2>
+    <h2>Lista de citas en New Jersey</h2>
     <!-- Filtros de Fecha -->
     <label for="fecha_desde">Fecha Desde:</label>
     <form action="newJerseyCalendar.php" method="GET">
@@ -404,6 +224,7 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
           <th>Fecha Hasta</th>
           <th>Nombre Paciente</th>
           <th>Status</th>
+          <th>Substatus</th>
           <th>Estado</th>
           <th>Edad</th>
         </tr>
@@ -412,22 +233,25 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
         <?php foreach ($results as $result) : ?>
           <tr>
             <td>
-              <?= $result['from']; ?>
+              <?= $result['start']; ?>
             </td>
             <td>
-              <?= $result['to']; ?>
+              <?= $result['end']; ?>
             </td>
             <td>
-              <?= $result['name']; ?>
+              <?= $result['title']; ?>
             </td>
             <td>
               <?= $result['status']; ?>
             </td>
             <td>
-              <?= $result['state']; ?>
+              <?= $result['substatus']; ?>
             </td>
             <td>
-              <?= giveEdad($result['edad']); ?>
+              <?= $result['estado']; ?>
+            </td>
+            <td>
+              <?= $result['edad']; ?>
             </td>
           </tr>
         <?php endforeach; ?>
@@ -453,3 +277,4 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
 </body>
 
 </html>
+
