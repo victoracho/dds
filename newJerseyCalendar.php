@@ -1,7 +1,4 @@
 <?php
-
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 require_once(__DIR__ . '/crest.php');
 require 'vendor/autoload.php';
 
@@ -60,132 +57,131 @@ function exportar($results)
 $results = [];
 if (isset($_GET['desde']) && $_GET['desde'] != null) {
 
-  $desde =  $_GET['desde'];
-  $fechaObj = DateTime::createFromFormat('d/m/Y', $desde);
-  $formatoISO = $fechaObj->format('Y-m-d\TH:i:s');
+  if ($_GET['desde'] <  $_GET['hasta']) {
+    $desde =  $_GET['desde'];
+    $fechaObj = DateTime::createFromFormat('d/m/Y', $desde);
+    $formatoISO = $fechaObj->format('Y-m-d\TH:i:s');
 
 
-  $desde = DateTime::createFromFormat('d/m/Y', $desde);
-  $desde = $desde->format('Y-m-d');
+    $desde = DateTime::createFromFormat('d/m/Y', $desde);
+    $desde = $desde->format('Y-m-d');
 
-  $hasta =  $_GET['hasta'];
-  $hasta = DateTime::createFromFormat('d/m/Y', $hasta);
-  $hasta = $hasta->format('Y-m-d');
+    $hasta =  $_GET['hasta'];
+    $hasta = DateTime::createFromFormat('d/m/Y', $hasta);
+    $hasta = $hasta->format('Y-m-d');
 
-  if ($desde == $hasta) {
-    $desde = $desde . 'T00:00:00';
-    $hasta = $hasta . 'T23:59:00';
-  }
-
-  $servername = "16.171.204.95";
-  $username = "bitrix";
-  $password = "8726231";
-  $dbname = "newJerseyCalendar.php";
-  // Create connection
-  $conn = mysqli_connect($servername, $username, $password, $dbname);
-  // Check connection
-  if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-  }
-
-  if (empty($status)) {
-    $status = null;
-  }
-
-  $sql = "SELECT * FROM appointments where start between '$desde' AND '$hasta' and status is not null and status !='deleted' ";
-
-
-  $result = mysqli_query($conn, $sql);
-  $results = [];
-
-  if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while ($res = mysqli_fetch_assoc($result)) {
-      $from = new DateTime($res['start']);
-      $from = $from->format("Y/m/d H:i");
-
-      $end = new DateTime($res['end']);
-      $end = $end->format("Y/m/d H:i");
-
-
-      $results[] =
-        [
-          'id' => $res['id'],
-          'deal_id' => $res['deal_id'],
-          'substatusColor' => $res['substatus'],
-          'allDay' => false,
-          'title' => $res['name'],
-          'status' => $res['status'],
-          'start' => $from,
-          'end' => $end,
-          'comment' => $res['comment'],
-          'substatus' => $res['substatus'],
-          'phone' => $res['phone'],
-          'user' => $res['user'],
-          'amount' => $res['amount'],
-          'invoice_number' => $res['invoice_number'],
-          'lodging' => $res['lodging'],
-          'more_invoices' => $res['more_invoices'],
-          'edad' => $res['edad'],
-          'estado' => $res['estado'],
-          'transportation' => $res['transportation'],
-          'previous_status' => $res['previous_status'],
-          'user_modified' => $res['user_modified'],
-          'date_created' => $res['date_created'],
-          'date_modified' => $res['date_modified']
-        ];
+    if ($desde == $hasta) {
+      $desde = $desde . 'T00:00:00';
+      $hasta = $hasta . 'T23:59:00';
     }
-  }
-  mysqli_close($conn);
 
-  if (empty($results)) {
-    $results[] = [];
-  }
-  $quantity = array(
-    'free eval' => 0,
-    'evaluation' => 0,
-    're-evaluation' => 0,
-    'emergency' => 0,
-    'vip' => 0,
-    'missing-appointment' => 0,
-    'payed' => 0,
-    'not payed' => 0,
-    'deleted' => 0,
-  );
-  foreach ($results as $res) {
-    if ($res['status'] == 'free eval') {
-      $quantity['free eval']++;
+    $servername = "16.171.204.95";
+    $username = "bitrix";
+    $password = "8726231";
+    $dbname = "newJersey";
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
+    // Check connection
+    if (!$conn) {
+      die("Connection failed: " . mysqli_connect_error());
     }
-    if ($res['status'] == 'evaluation') {
-      $quantity['evaluation']++;
+
+    if (empty($status)) {
+      $status = null;
     }
-    if ($res['status'] == 're-evaluation') {
-      $quantity['re-evaluation']++;
+
+    $sql = "SELECT * FROM appointments where start between '$desde' AND '$hasta' and status is not null and status !='deleted' ";
+
+
+    $result = mysqli_query($conn, $sql);
+    $results = [];
+
+    if (mysqli_num_rows($result) > 0) {
+      // output data of each row
+      while ($res = mysqli_fetch_assoc($result)) {
+        $from = new DateTime($res['start']);
+        $from = $from->format("Y/m/d H:i");
+
+        $end = new DateTime($res['end']);
+        $end = $end->format("Y/m/d H:i");
+
+
+        $results[] =
+          [
+            'id' => $res['id'],
+            'deal_id' => $res['deal_id'],
+            'substatusColor' => $res['substatus'],
+            'allDay' => false,
+            'title' => $res['name'],
+            'status' => $res['status'],
+            'start' => $from,
+            'end' => $end,
+            'comment' => $res['comment'],
+            'substatus' => $res['substatus'],
+            'phone' => $res['phone'],
+            'user' => $res['user'],
+            'amount' => $res['amount'],
+            'invoice_number' => $res['invoice_number'],
+            'lodging' => $res['lodging'],
+            'more_invoices' => $res['more_invoices'],
+            'edad' => $res['edad'],
+            'estado' => $res['estado'],
+            'transportation' => $res['transportation'],
+            'previous_status' => $res['previous_status'],
+            'user_modified' => $res['user_modified'],
+            'date_created' => $res['date_created'],
+            'date_modified' => $res['date_modified']
+          ];
+      }
     }
-    if ($res['status'] == 'emergency') {
-      $quantity['emergency']++;
+    mysqli_close($conn);
+
+    if (empty($results)) {
+      $results[] = [];
     }
-    if ($res['status'] == 'vip') {
-      $quantity['vip']++;
-    }
-    if ($res['status'] == 'missing-appointment') {
-      $quantity['missing-appointment']++;
-    }
-    if ($res['status'] == 'payed') {
-      $quantity['payed']++;
-    }
-    if ($res['status'] == 'not payed') {
-      $quantity['not payed']++;
-    }
-    if ($res['status'] == 'deleted') {
-      $quantity['deleted']++;
+    $quantity = array(
+      'free eval' => 0,
+      'evaluation' => 0,
+      're-evaluation' => 0,
+      'emergency' => 0,
+      'vip' => 0,
+      'missing-appointment' => 0,
+      'payed' => 0,
+      'not payed' => 0,
+      'deleted' => 0,
+    );
+    foreach ($results as $res) {
+      if ($res['status'] == 'free eval') {
+        $quantity['free eval']++;
+      }
+      if ($res['status'] == 'evaluation') {
+        $quantity['evaluation']++;
+      }
+      if ($res['status'] == 're-evaluation') {
+        $quantity['re-evaluation']++;
+      }
+      if ($res['status'] == 'emergency') {
+        $quantity['emergency']++;
+      }
+      if ($res['status'] == 'vip') {
+        $quantity['vip']++;
+      }
+      if ($res['status'] == 'missing-appointment') {
+        $quantity['missing-appointment']++;
+      }
+      if ($res['status'] == 'payed') {
+        $quantity['payed']++;
+      }
+      if ($res['status'] == 'not payed') {
+        $quantity['not payed']++;
+      }
+      if ($res['status'] == 'deleted') {
+        $quantity['deleted']++;
+      }
     }
   }
 }
 
-if (isset($_GET['exportar'])) {
-  exportar($results);
-}
 
 ?>
 <!DOCTYPE html>
@@ -195,33 +191,33 @@ if (isset($_GET['exportar'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pacientes - DataTable</title>
-  <!-- Incluir DataTables CSS y jQuery -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
-  <!-- jQuery UI CSS para el Datepicker -->
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.36/build/pdfmake.min.js"></script>
+  <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.36/build/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-  <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 </head>
 
 <body>
   <div class="container">
-    <h2>Lista de citas en new Jersey</h2>
+    <h2>Lista de citas en New Jersey</h2>
     <!-- Filtros de Fecha -->
     <label for="fecha_desde">Fecha Desde:</label>
-    <form action="newJersey.php" method="GET">
+    <form action="newJerseyCalendar.php" method="GET">
       <input type="text" id="desde" name="desde" placeholder="Selecciona la fecha desde">
       <label for="fecha_hasta">Fecha Hasta:</label>
       <input type="text" id="hasta" name="hasta" placeholder="Selecciona la fecha hasta">
       <button submit id="filtrar">Filtrar</button>
     </form>
     <br>
-    <div class="fichecenter" id="print_block" style="text-align: center;">
-      <button class="butAction" id="pdf" style="background-color: #944000 !important;">Exportar Pdf<span class="fa fa-print atoplogin valignmiddle"></span></button><button class="butAction" id="excel" style="background-color: #944000 !important;">Exportar a Excel <span class="fa fa-print atoplogin valignmiddle"></span></button>
-    </div>
-    <table id="tablaPacientes" class="display">
+    <table id="example" class="display nowrap" style="width:100%">
       <thead>
         <tr>
           <th>Fecha Desde</th>
@@ -260,10 +256,8 @@ if (isset($_GET['exportar'])) {
           </tr>
         <?php endforeach; ?>
       </tbody>
-      <br>
-      <br>
-      <br>
     </table>
+
   </div>
   <script>
     // Inicializar el DataTable cuando la página esté lista
@@ -275,53 +269,12 @@ if (isset($_GET['exportar'])) {
         dateFormat: 'dd/mm/yy'
       });
       // Insertar datos en la tabla
-      var table = $('#tablaPacientes').DataTable();
-      $('#excel').click(function() {
-        function downloadExcelTable(tableID, filename = '') {
-          const linkToDownloadFile = document.
-          createElement("a");
-          const fileType = 'application/vnd.ms-excel';
-          const selectedTable = document.getElementById('tablaPacientes');
-
-          const selectedTableHTML = selectedTable.outerHTML.
-          replace(/ /g, '%20');
-          const selected = selectedTableHTML;
-          filename = filename ? filename + '.xls' :
-            'excel_data.xls';
-          document.body.appendChild(linkToDownloadFile);
-
-          if (navigator.msSaveOrOpenBlob) {
-            const myBlob = new Blob(['\ufeff',
-              selected
-            ], {
-              type: fileType
-            });
-            navigator.msSaveOrOpenBlob(myBlob, filename);
-          } else {
-            // Create a link to download
-            // the excel the file
-            linkToDownloadFile.href = 'data:' + fileType +
-              ', ' + selected;
-
-            // Setting the name of
-            // the downloaded file
-            linkToDownloadFile.download = filename;
-
-            // Clicking the download link
-            // on click to the button
-            linkToDownloadFile.click();
-          }
-        }
-        downloadExcelTable('tablaPacientes', 'employeeData');
+      $('#example').DataTable({
+        dom: 'Bfrtip', // Esto coloca los botones antes de la tabla (B=botones, f=filtro, r=procesando, t=tabla, i=info, p=paginación)
+        buttons: [
+          'copy', 'excel', 'pdf', 'print'
+        ]
       });
-      $('#pdf').click(function() {
-        var elemento = document.getElementById('tablaPacientes');
-        html2pdf()
-          .from(elemento)
-          .save();
-
-      });
-
     });
   </script>
 </body>
