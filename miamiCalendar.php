@@ -172,7 +172,7 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
     <h2>Lista de citas en Miami</h2>
     <!-- Filtros de Fecha -->
     <label for="fecha_desde">Fecha Desde:</label>
-    <form action="newJerseyCalendar.php" method="GET">
+    <form action="miamiCalendar.php" method="GET">
       <input type="text" id="desde" name="desde" placeholder="Selecciona la fecha desde">
       <label for="fecha_hasta">Fecha Hasta:</label>
       <input type="text" id="hasta" name="hasta" placeholder="Selecciona la fecha hasta">
