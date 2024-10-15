@@ -57,11 +57,10 @@ function exportar($results)
 $results = [];
 if (isset($_GET['desde']) && $_GET['desde'] != null) {
 
-  if ($_GET['desde'] <  $_GET['hasta']) {
+  if ($_GET['desde'] <=  $_GET['hasta']) {
     $desde =  $_GET['desde'];
     $fechaObj = DateTime::createFromFormat('d/m/Y', $desde);
     $formatoISO = $fechaObj->format('Y-m-d\TH:i:s');
-
 
     $desde = DateTime::createFromFormat('d/m/Y', $desde);
     $desde = $desde->format('Y-m-d');
@@ -69,11 +68,8 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
     $hasta =  $_GET['hasta'];
     $hasta = DateTime::createFromFormat('d/m/Y', $hasta);
     $hasta = $hasta->format('Y-m-d');
-
-    if ($desde == $hasta) {
-      $desde = $desde . 'T00:00:00';
-      $hasta = $hasta . 'T23:59:00';
-    }
+    $desde = $desde . 'T00:00:00';
+    $hasta = $hasta . 'T23:59:00';
 
     $servername = "16.171.204.95";
     $username = "bitrix";
