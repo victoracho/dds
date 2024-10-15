@@ -62,6 +62,7 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
     $fechaObj = DateTime::createFromFormat('d/m/Y', $desde);
     $formatoISO = $fechaObj->format('Y-m-d\TH:i:s');
 
+
     $desde = DateTime::createFromFormat('d/m/Y', $desde);
     $desde = $desde->format('Y-m-d');
 
@@ -70,6 +71,7 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
     $hasta = $hasta->format('Y-m-d');
     $desde = $desde . 'T00:00:00';
     $hasta = $hasta . 'T23:59:00';
+
 
     $servername = "16.171.204.95";
     $username = "bitrix";
@@ -95,12 +97,20 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
     if (mysqli_num_rows($result) > 0) {
       // output data of each row
       while ($res = mysqli_fetch_assoc($result)) {
-        $from = new DateTime($res['start']);
-        $from = $from->format("Y/m/d H:i");
 
-        $end = new DateTime($res['end']);
-        $end = $end->format("Y/m/d H:i");
+        $start = '';
+        if ($res['start']) {
+          $from = $res['start'];
+          $date = new DateTime($from);
+          $from = $date->format('d/m/Y H:i');
+        }
 
+        $end = '';
+        if ($res['start']) {
+          $end = $res['start'];
+          $date = new DateTime($end);
+          $end = $date->format('d/m/Y H:i');
+        }
 
         $results[] =
           [
@@ -131,50 +141,6 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
       }
     }
     mysqli_close($conn);
-
-    if (empty($results)) {
-      $results[] = [];
-    }
-    $quantity = array(
-      'free eval' => 0,
-      'evaluation' => 0,
-      're-evaluation' => 0,
-      'emergency' => 0,
-      'vip' => 0,
-      'missing-appointment' => 0,
-      'payed' => 0,
-      'not payed' => 0,
-      'deleted' => 0,
-    );
-    foreach ($results as $res) {
-      if ($res['status'] == 'free eval') {
-        $quantity['free eval']++;
-      }
-      if ($res['status'] == 'evaluation') {
-        $quantity['evaluation']++;
-      }
-      if ($res['status'] == 're-evaluation') {
-        $quantity['re-evaluation']++;
-      }
-      if ($res['status'] == 'emergency') {
-        $quantity['emergency']++;
-      }
-      if ($res['status'] == 'vip') {
-        $quantity['vip']++;
-      }
-      if ($res['status'] == 'missing-appointment') {
-        $quantity['missing-appointment']++;
-      }
-      if ($res['status'] == 'payed') {
-        $quantity['payed']++;
-      }
-      if ($res['status'] == 'not payed') {
-        $quantity['not payed']++;
-      }
-      if ($res['status'] == 'deleted') {
-        $quantity['deleted']++;
-      }
-    }
   }
 }
 
@@ -206,7 +172,7 @@ if (isset($_GET['desde']) && $_GET['desde'] != null) {
     <h2>Lista de citas en Miami</h2>
     <!-- Filtros de Fecha -->
     <label for="fecha_desde">Fecha Desde:</label>
-    <form action="miamiCalendar.php" method="GET">
+    <form action="newJerseyCalendar.php" method="GET">
       <input type="text" id="desde" name="desde" placeholder="Selecciona la fecha desde">
       <label for="fecha_hasta">Fecha Hasta:</label>
       <input type="text" id="hasta" name="hasta" placeholder="Selecciona la fecha hasta">
